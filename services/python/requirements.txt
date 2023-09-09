@@ -10,6 +10,7 @@ async-timeout==4.0.3
 asyncssh==2.13.2
 atpublic==4.0
 attrs==23.1.0
+behave==1.2.6
 billiard==4.1.0
 blinker==1.6.2
 boto3==1.26.161
@@ -90,6 +91,8 @@ omegaconf==2.3.0
 orjson==3.9.7
 packaging==23.1
 pandas==2.1.0
+parse==1.19.1
+parse-type==0.6.2
 pathspec==0.11.2
 Pillow==10.0.0
 pip==23.2.1
