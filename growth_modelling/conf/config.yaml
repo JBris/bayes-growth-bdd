@@ -3,6 +3,7 @@ defaults:
   - common: carcharhiniformes
   - preprocess: carcharhiniformes
   - plot: carcharhiniformes
+  - experiment_tracking: local
 
 data:
   dir: data

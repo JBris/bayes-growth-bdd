@@ -8,6 +8,11 @@ services:
     hostname: python
     env_file: .env
     working_dir: /growth_modelling
+    environment:
+      MLFLOW_BACKEND_STORE_URI: $MLFLOW_BACKEND_STORE_URI
+      MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     volumes:
       - ./growth_modelling:/growth_modelling
 
@@ -20,7 +25,7 @@ services:
     env_file: .env
     environment:
       MLFLOW_BACKEND_STORE_URI: $MLFLOW_BACKEND_STORE_URI
-      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     ports:

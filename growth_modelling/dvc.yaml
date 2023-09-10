@@ -20,6 +20,7 @@ stages:
     deps:
     - conf/common/carcharhiniformes.yaml
     - conf/config.yaml
+    - conf/experiment_tracking/local.yaml
     - conf/plot/carcharhiniformes.yaml
     - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/data.csv
     - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
