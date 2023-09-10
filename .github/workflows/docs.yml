@@ -24,7 +24,7 @@ jobs:
         pip install --no-cache-dir -r services/python/requirements.txt
     - name: Generate documentation
       run: |
-        ./scripts/create_docs.sh
+        bash scripts/create_docs.sh
     - name: Commit files
       run: |
         echo ${{ github.ref }}
