@@ -1,0 +1,16 @@
+stages:
+  preprocess:
+    cmd: python src/preprocess.py data.species=[btp,abt,sss] data.out=data.csv
+    deps:
+    - data/limbatus.csv
+    - data/spot_tail_shark.csv
+    - src/conf/preprocess.yaml
+    - src/growth_lib
+    - src/preprocess.py
+    outs:
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/README.md
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/data.csv
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/README.md
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/README.md
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv

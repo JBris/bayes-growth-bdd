@@ -1,0 +1,57 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python src/preprocess.py data.species=[btp,abt,sss] data.out=data.csv
+    deps:
+    - path: data/limbatus.csv
+      hash: md5
+      md5: 417fbada364e5563bc5060b81576bff5
+      size: 105963
+    - path: data/spot_tail_shark.csv
+      hash: md5
+      md5: 527bbce9e54ba46a0a054837ca2a9f54
+      size: 71932
+    - path: src/conf/preprocess.yaml
+      hash: md5
+      md5: 32cc5a195030f6b544b7706aa18dcfb5
+      size: 119
+    - path: src/growth_lib
+      hash: md5
+      md5: 144f90b8556e7393a6f7374873fba18a.dir
+      size: 398
+      nfiles: 4
+    - path: src/preprocess.py
+      hash: md5
+      md5: 49a7e2c53cf7a18f9a2f44a07ac58a71
+      size: 2392
+    outs:
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/README.md
+      hash: md5
+      md5: b453520da72a0727a03249c1bd648a46
+      size: 301
+      isexec: true
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/data.csv
+      hash: md5
+      md5: c50b2eb18fa3402ebc9da1a14956fec5
+      size: 12270
+      isexec: true
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/README.md
+      hash: md5
+      md5: 8f51fc9ab945895a6164505583af66b5
+      size: 310
+      isexec: true
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
+      hash: md5
+      md5: 0b215491fa46cc2f0eae5ca667b7b965
+      size: 13833
+      isexec: true
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/README.md
+      hash: md5
+      md5: b453520da72a0727a03249c1bd648a46
+      size: 301
+      isexec: true
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv
+      hash: md5
+      md5: cd04304040446b82052d7c361a6e617b
+      size: 15377
+      isexec: true

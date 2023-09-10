@@ -2,6 +2,15 @@ version: "3.9"
 
 services:
 
+  python:
+    image: $GITHUB_CONTAINER_REPO
+    container_name: ${PROJECT_NAME}-python
+    hostname: python
+    env_file: .env
+    working_dir: /growth_modelling
+    volumes:
+      - ./growth_modelling:/growth_modelling
+
   mlflow:
     image: $GITHUB_CONTAINER_REPO
     container_name: ${PROJECT_NAME}-mlflow
