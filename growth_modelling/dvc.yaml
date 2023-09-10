@@ -1,10 +1,12 @@
 stages:
   preprocess:
-    cmd: python src/preprocess.py data.species=[btp,abt,sss] data.out=data.csv
+    cmd: python src/preprocess.py
     deps:
+    - conf/common/carcharhiniformes.yaml
+    - conf/config.yaml
+    - conf/preprocess/carcharhiniformes.yaml
     - data/limbatus.csv
     - data/spot_tail_shark.csv
-    - src/conf/preprocess.yaml
     - src/preprocess.py
     outs:
     - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/README.md
@@ -13,3 +15,17 @@ stages:
     - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
     - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/README.md
     - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv
+  plot_curves:
+    cmd: python src/plot_curves.py
+    deps:
+    - conf/common/carcharhiniformes.yaml
+    - conf/config.yaml
+    - conf/plot/carcharhiniformes.yaml
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/data.csv
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv
+    - src/plot_curves.py
+    outs:
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/fl_age.png
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/fl_age.png
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/fl_age.png

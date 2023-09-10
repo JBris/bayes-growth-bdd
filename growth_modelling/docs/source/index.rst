@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Growth Modelling Behavior-Driven Development
+Bayesian Growth Modelling Behavior-Driven Development
 ============================================
 
 .. toctree::

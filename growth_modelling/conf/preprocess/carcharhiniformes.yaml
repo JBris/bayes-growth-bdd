@@ -1,0 +1,3 @@
+cols: [fl, age, sex, year, source, species]
+drop_na: false
+lowercase: [sex, source, species]

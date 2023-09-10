@@ -6,3 +6,4 @@ Pipelines
    :caption: Contents:
 
    preprocess.rst
+   plot_curves.rst

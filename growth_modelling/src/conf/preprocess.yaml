@@ -1,6 +1,0 @@
-data:
-  dir: data
-  index: index.csv
-  species: [btp, abt, sss]
-  cols: [fl, age, sex, year, source, species]
-  out: data.csv
