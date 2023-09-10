@@ -19,10 +19,10 @@ from growth_lib.constants import DATA_DIR
 ######################################
 
 
-def create_species_df(
+def write_species_csv(
     species_code: str, index_df: pd.DataFrame, data_dir:str, cols: str, outfile: str
 ) -> None:
-    """_summary_
+    """Creates a species dataframe and writes it to a CSV file.
 
     Args:
         species_code (str): The shark species code.
@@ -75,7 +75,7 @@ def main(config: DictConfig) -> None:
     index_df = pd.read_csv(index_file)
 
     for species_code in SPECIES_LIST:
-        create_species_df(species_code, index_df, DATA_DIR, COLS, OUTFILE)
+        write_species_csv(species_code, index_df, DATA_DIR, COLS, OUTFILE)
 
 
 if __name__ == "__main__":
