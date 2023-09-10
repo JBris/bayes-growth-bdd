@@ -5,7 +5,6 @@ stages:
     - data/limbatus.csv
     - data/spot_tail_shark.csv
     - src/conf/preprocess.yaml
-    - src/growth_lib
     - src/preprocess.py
     outs:
     - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/README.md

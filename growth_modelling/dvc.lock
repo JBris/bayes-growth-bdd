@@ -13,17 +13,12 @@ stages:
       size: 71932
     - path: src/conf/preprocess.yaml
       hash: md5
-      md5: 32cc5a195030f6b544b7706aa18dcfb5
-      size: 119
-    - path: src/growth_lib
-      hash: md5
-      md5: 144f90b8556e7393a6f7374873fba18a.dir
-      size: 398
-      nfiles: 4
+      md5: 70a5159e4f20a75d00019f3c03f62528
+      size: 132
     - path: src/preprocess.py
       hash: md5
-      md5: c8713db4d58721120d2da7f6c65abd50
-      size: 2439
+      md5: 2419bce28ee139f4fbfff1f1081d4c02
+      size: 2417
     outs:
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/README.md
       hash: md5

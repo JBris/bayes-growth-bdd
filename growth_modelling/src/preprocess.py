@@ -11,25 +11,27 @@ from os.path import join as join_path
 import pandas as pd
 from pathlib import Path
 
-# Internal
-from growth_lib.constants import DATA_DIR
-
 ######################################
 # Main
 ######################################
 
-
 def write_species_csv(
     species_code: str, index_df: pd.DataFrame, data_dir:str, cols: str, outfile: str
 ) -> None:
-    """Creates a species dataframe and writes it to a CSV file.
+    """
+    Creates a species dataframe and writes it to a CSV file.
 
     Args:
-        species_code (str): The shark species code.
-        index_df (pd.DataFrame): The index dataframe containing metadata.
-        data_dir (str): The data directory.
-        cols (str): The dataframe column list.
-        outfile (str): The output file name.
+        species_code (str): 
+            The shark species code.
+        index_df (pd.DataFrame): 
+            The index dataframe containing metadata.
+        data_dir (str): 
+            The data directory.
+        cols (str): 
+            The dataframe column list.
+        outfile (str): 
+            The output file name.
     """
     species_df = index_df.query("species_code == @species_code")
     extract_val = lambda key: species_df[key].values.item()
@@ -63,8 +65,16 @@ def write_species_csv(
 
 @hydra.main(version_base=None, config_path="conf", config_name="preprocess")
 def main(config: DictConfig) -> None:
+    """
+    The main entry point for the preprocess pipeline.
+
+    Args:
+        config (DictConfig): 
+            The pipeline configuration.
+    """
     # Constants
     data_config = config["data"]
+    DATA_DIR = data_config["dir"]
     INDEX = data_config["index"]
     SPECIES_LIST = data_config["species"]
     COLS = data_config["cols"]
