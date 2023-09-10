@@ -1,4 +1,4 @@
-name: Validate XEG
+name: Validate Pipeline
 
 on: [push, pull_request]
 
