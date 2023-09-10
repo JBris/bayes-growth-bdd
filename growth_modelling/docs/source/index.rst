@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Bayesian Growth Modelling Behavior-Driven Development
-============================================
+=====================================================
 
 .. toctree::
    :maxdepth: 2

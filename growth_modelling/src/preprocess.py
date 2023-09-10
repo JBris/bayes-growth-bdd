@@ -15,27 +15,33 @@ from pathlib import Path
 # Main
 ######################################
 
+
 def write_species_csv(
-    species_code: str, index_df: pd.DataFrame, data_dir:str, cols: str, outfile: str,
-    lowercase_list = [], drop_na = False
+    species_code: str,
+    index_df: pd.DataFrame,
+    data_dir: str,
+    cols: str,
+    outfile: str,
+    lowercase_list=[],
+    drop_na=False,
 ) -> None:
     """
     Creates a species dataframe and writes it to a CSV file.
 
     Args:
-        species_code (str): 
+        species_code (str):
             The shark species code.
-        index_df (pd.DataFrame): 
+        index_df (pd.DataFrame):
             The index dataframe containing metadata.
-        data_dir (str): 
+        data_dir (str):
             The data directory.
-        cols (str): 
+        cols (str):
             The dataframe column list.
-        outfile (str): 
+        outfile (str):
             The output file name.
         lowercase_list (list, optional):
             Columns to convert all values to lowercase.
-        drop_na (bool, optional): 
+        drop_na (bool, optional):
             Drop missing values
     """
     species_df = index_df.query("species_code == @species_code")
@@ -60,7 +66,7 @@ def write_species_csv(
     data_df.columns = data_df.columns.str.lower()
     data_df = data_df[cols]
     if drop_na:
-        data_df = data_df.dropna(axis = 0)
+        data_df = data_df.dropna(axis=0)
     for lower_col in lowercase_list:
         data_df[lower_col] = data_df[lower_col].astype("str").str.lower()
 
@@ -80,7 +86,7 @@ def main(config: DictConfig) -> None:
     The main entry point for the preprocess pipeline.
 
     Args:
-        config (DictConfig): 
+        config (DictConfig):
             The pipeline configuration.
     """
     # Constants
@@ -101,7 +107,9 @@ def main(config: DictConfig) -> None:
     index_df = pd.read_csv(index_file)
 
     for species_code in SPECIES_LIST:
-        write_species_csv(species_code, index_df, DATA_DIR, COLS, OUTFILE, LOWERCASE, DROP_NA)
+        write_species_csv(
+            species_code, index_df, DATA_DIR, COLS, OUTFILE, LOWERCASE, DROP_NA
+        )
 
 
 if __name__ == "__main__":
