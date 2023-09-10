@@ -3,6 +3,10 @@ name: Documentation
 on: 
   workflow_dispatch:
 
+permissions:
+  actions: write
+  contents: write
+
 jobs:
   build-linux:
     runs-on: ubuntu-latest
