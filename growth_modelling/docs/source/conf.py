@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Growth Modelling'
+project = 'Growth Modelling Behavior-Driven Development'
 copyright = '2023, James Bristow'
 author = 'James Bristow'
 
