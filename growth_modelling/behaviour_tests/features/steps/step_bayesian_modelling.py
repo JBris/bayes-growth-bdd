@@ -3,9 +3,11 @@
 ######################################
 
 # External
+import arviz as az
 from behave.runner import Context
 from behave import given, when, then
 from behave import register_type
+from os.path import join as join_path
 import pymc as pm
 
 # Internal
@@ -80,7 +82,9 @@ def step_impl(context: Context, hdi_prob: float) -> None:
         fisheries_def.locations, fisheries_def.response_var, fisheries_def.explanatory_var
     )
 
-    out_dir = get_dir_path("out", fisheries_def.class_, fisheries_def.order, fisheries_def.species) 
+    out_dir = join_path(
+        "out", fisheries_def.class_, fisheries_def.order, fisheries_def.species, fisheries_def.sex
+    ) 
     behaviour.to_yaml(out_dir)
 
     x = df[fisheries_def.explanatory_var]
@@ -112,16 +116,30 @@ def step_impl(context: Context, hdi_prob: float) -> None:
         context.trace = trace
 
 @then(
-    'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostic to be at "{comparison:QueryComparison}" "{diag_baseline:f}"'
+    'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostics to all be at "{comparison:QueryComparison}" "{diag_baseline:f}"'
 )
 def step_impl(context: Context, diag_longname: str, diagnostic: str, comparison: str, diag_baseline: float) -> None: 
-    pass
-    import arviz as az
     hdi_prob = context.behaviour.bayesian["hdi_prob"]
-    trace_df = (
-         az.summary(context.trace, hdi_prob = hdi_prob)
-         .query(f"{diagnostic} {comparison} @diag_baseline")
-    )
-
+    trace_df = az.summary(context.trace, hdi_prob = hdi_prob)
     n_rows = trace_df.shape[0] 
-    # raise NotImplementedError(trace_df)
+
+    filtered_df = trace_df.query(f"{diagnostic} {comparison} @diag_baseline")
+    filtered_n_rows = filtered_df.shape[0] 
+
+    assert n_rows == filtered_n_rows
+
+@then('we expect the posterior mean of the "{parameter}" parameter estimate to be "{estimate:f}" with "{error_prop:f}" error')
+def step_impl(context: Context, parameter: str, estimate: float, error_prop: float) -> None:
+    hdi_prob = context.behaviour.bayesian["hdi_prob"]
+    trace_df = az.summary(context.trace, hdi_prob = hdi_prob)
+    trace_df['parameter'] = trace_df.index
+
+    error = estimate * error_prop
+    posterior_mean = (
+        trace_df
+        .query("parameter == @parameter")["mean"]
+        .values
+        .item()
+    )
+    
+    assert posterior_mean < (estimate + error) and posterior_mean > (estimate - error)

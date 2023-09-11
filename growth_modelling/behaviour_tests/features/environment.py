@@ -29,7 +29,3 @@ def before_scenario(context: Context, scenario: Scenario) -> None:
 
     if fisheries_modelling_tag in tags:
         context.behaviour = BehaviourTestModel()
-
-
-def after_feature(context, feature):
-    pass
