@@ -2,9 +2,14 @@
 # Imports
 ######################################
 
-from behave import given, when, then, step
+# External
+from behave.runner import Context
+from behave import given, when
 from behave import register_type
 from parse_type import TypeBuilder
+
+# Internal
+from utils import parse_comma_list, parse_male_female, snake_case_string
 
 ######################################
 # Oracles
@@ -14,104 +19,70 @@ location_oracle = {
     "NewSouthWalesA": "nsw1",
     "NewSouthWalesB": "nsw2",
     "QueenslandA": "qld",
-    "QueenslandB": "qld2"
+    "QueenslandB": "qld2",
 }
 
-variable_oracle = {
-    "fork_length": "fl",
-    "age": "age"
-}
+variable_oracle = {"fork_length": "fl", "age": "age"}
 
 ######################################
 # Types
 ######################################
 
-def clean_string(text: str) -> str:
-    """
-    Apply some processing to clean a string.
-
-    Args:
-        text (str): 
-            The input text.
-
-    Returns:
-        str: The cleaned string.
-    """
-    cleaned_string = (
-        text
-        .strip()
-        .replace(" ", "_")
-        .replace(".", "_")
-        .lower()
-    )
-    return cleaned_string
-register_type(CleanString=clean_string)
-
-parse_male_female = TypeBuilder.make_enum({"male": "m", "female": "f" })
-register_type(MaleFemale = parse_male_female)
-
-def parse_comma_list(text: str) -> list:
-    """
-    Parse a comma-delimited string into a list.
-
-    Args:
-        text (str): 
-            The input text.
-
-    Returns:
-        list: The parsed list.
-    """
-    word_list: list[str] = (
-        text
-        .replace(", and", ",")
-        .replace(" ", "")
-        .split(",")
-    )
-
-    return word_list
+register_type(SnakeCaseString=snake_case_string)
+register_type(MaleFemale=parse_male_female)
 register_type(CommaList=parse_comma_list)
 
 ######################################
 # Steps
 ######################################
 
-@given('our class is "{class_:CleanString}"')
-def step_impl(context, class_: str):
-    pass
+
+@given('our class is "{class_:SnakeCaseString}"')
+def step_impl(context: Context, class_: str) -> None:
+    context.behaviour.fisheries.class_ = class_
 
 
-@given('our order is "{order:CleanString}"')
-def step_impl(context, order: str):
-    pass
+@given('our order is "{order:SnakeCaseString}"')
+def step_impl(context: Context, order: str) -> None:
+    context.behaviour.fisheries.order = order
 
 
-@given('our species is "{species:CleanString}')
-def step_impl(context, species: str):
-    pass
+@given('our species is "{species:SnakeCaseString}"')
+def step_impl(context: Context, species: str) -> None:
+    context.behaviour.fisheries.species = species
 
-@given(u'our data source is "{data_source}"')
-def step_impl(context, data_source: str):
-    pass
+
+@given('our data source is "{data_source}"')
+def step_impl(context: Context, data_source: str) -> None:
+    context.behaviour.fisheries.data_source = data_source
+
 
 @when('our sex is "{sex:MaleFemale}"')
-def step_impl(context, sex: str):
-    pass
+def step_impl(context: Context, sex: str) -> None:
+    context.behaviour.fisheries.sex = sex
 
 @when('we have samples taken from "{location_list:CommaList}"')
-def step_impl(context, location_list: list[str]):
-    location_list = [ location_oracle.get(location) for location in location_list ]
-    pass
+def step_impl(context: Context, location_list: list[str]) -> None:
+    locations = [location_oracle.get(location) for location in location_list]
+    context.behaviour.fisheries.locations = locations
 
 @when('we have samples taken between "{lower_data:d}" and "{upper_date:d}"')
-def step_impl(context, lower_data: int, upper_date: int):
-    pass
+def step_impl(context: Context, lower_data: int, upper_date: int) -> None:
+    context.behaviour.fisheries.years = (lower_data, upper_date)
 
-@when('our response variable is "{response_var:CleanString}" ("{response_unit:CleanString}")')
-def step_impl(context, response_var: str, response_unit: str):
+
+@when(
+    'our response variable is "{response_var:SnakeCaseString}" ("{response_unit:SnakeCaseString}")'
+)
+def step_impl(context: Context, response_var: str, response_unit: str) -> None:
     response_var = variable_oracle.get(response_var)
-    pass
+    context.behaviour.fisheries.response_var = response_var
+    context.behaviour.fisheries.response_unit = response_unit
 
-@when('our explanatory variable is "{explanatory_var:CleanString}" ("{explanatory_unit:CleanString}")')
-def step_impl(context, explanatory_var: str, explanatory_unit: str):
+@when(
+    'our explanatory variable is "{explanatory_var:SnakeCaseString}" ("{explanatory_unit:SnakeCaseString}")'
+)
+def step_impl(context: Context, explanatory_var: str, explanatory_unit: str) -> None:
     explanatory_var = variable_oracle.get(explanatory_var)
-    pass
+    context.behaviour.fisheries.explanatory_var = explanatory_var
+    context.behaviour.fisheries.explanatory_unit = explanatory_unit
