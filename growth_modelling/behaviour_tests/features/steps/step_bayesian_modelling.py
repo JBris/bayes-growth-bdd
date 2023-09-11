@@ -29,13 +29,13 @@ register_type(SnakeCaseString=snake_case_string)
 ######################################
 
 
-@given('we are fitting a "{model_type}" Bayesian multilevel model using "{sampler_longname}" ("{sampler: SnakeCaseString}")')
+@given('we are fitting a "{model_type}" Bayesian multilevel growth model using "{sampler_longname}" ("{sampler: SnakeCaseString}")')
 def step_impl(context: Context, model_type: str, sampler_longname: str, sampler: str) -> None:
     context.behaviour.bayesian.model_type = model_type
     context.behaviour.bayesian.sampler_longname = sampler_longname
     context.behaviour.bayesian.sampler = sampler
 
-@given('we are fitting a model with a "{likelihood: SnakeCaseString}" likelihood')
+@given('we are fitting a growth model with a "{likelihood: SnakeCaseString}" likelihood')
 def step_impl(context: Context, likelihood: str) -> None:
     context.behaviour.bayesian.likelihood = likelihood
 

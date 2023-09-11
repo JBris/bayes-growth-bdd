@@ -46,6 +46,9 @@ def step_impl(context: Context, class_: str) -> None:
 def step_impl(context: Context, order: str) -> None:
     context.behaviour.fisheries.order = order
 
+@given('our family is "{family:SnakeCaseString}"')
+def step_impl(context: Context, family: str) -> None:
+    context.behaviour.fisheries.family = family
 
 @given('our species is "{species:SnakeCaseString}"')
 def step_impl(context: Context, species: str) -> None:

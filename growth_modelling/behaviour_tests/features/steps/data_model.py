@@ -72,6 +72,7 @@ class FisheriesModel(BaseDataModel):
 
     class_: str = "chondrichthyes"
     order: str = "carcharhiniformes"
+    family: str = "carcharhinidae"
     species: str = "carcharhinus_limbatus"
     data_source: str = ""
     sex: str = "female"
