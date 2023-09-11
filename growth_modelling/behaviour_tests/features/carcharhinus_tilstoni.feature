@@ -1,5 +1,5 @@
 @carcharhinus_tilstoni
-Feature: Growth model for Australian blacktip sharks (Carcharhinus tilstoni)
+Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilstoni)
     Background:
         Given we are fitting a "linear" Bayesian multilevel model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a model with a "Gaussian" likelihood
