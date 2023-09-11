@@ -116,7 +116,7 @@ def step_impl(context: Context, hdi_prob: float) -> None:
         context.trace = trace
 
 @then(
-    'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostics to all be at "{comparison:QueryComparison}" "{diag_baseline:f}"'
+    'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostics to all be "{comparison:QueryComparison}" "{diag_baseline:f}"'
 )
 def step_impl(context: Context, diag_longname: str, diagnostic: str, comparison: str, diag_baseline: float) -> None: 
     hdi_prob = context.behaviour.bayesian["hdi_prob"]

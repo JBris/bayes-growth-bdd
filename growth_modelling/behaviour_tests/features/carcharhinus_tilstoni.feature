@@ -24,11 +24,11 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "5.0"
         And we retrieve our data from the "data.csv" file
         And we fit our Bayesian model, then evaluate its "0.95" highest density intervals (HDIs)
-        Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be at "greater than" "500.0"
-        And we expect our "Effective sample size" ("ESS tail") diagnostics to all be at "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be at "less than" "0.05"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be at "less than" "0.035"
-        And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be at "less than" "1.1"
+        Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
+        And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.035"
+        And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
         And we expect the posterior mean of the "intercept" parameter estimate to be "55.0" with "0.05" error
         And we expect the posterior mean of the "slope" parameter estimate to be "6.0" with "0.25" error
         And we expect the posterior mean of the "sigma" parameter estimate to be "6.0" with "0.25" error
@@ -44,11 +44,11 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "5.0"
         And we retrieve our data from the "data.csv" file
         And we fit our Bayesian model, then evaluate its "0.95" highest density intervals (HDIs)
-        Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be at "greater than" "500.0"
-        And we expect our "Effective sample size" ("ESS tail") diagnostics to all be at "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be at "less than" "0.05"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be at "less than" "0.035"
-        And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be at "less than" "1.1"
+        Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
+        And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.035"
+        And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
         And we expect the posterior mean of the "intercept" parameter estimate to be "54.0" with "0.05" error
         And we expect the posterior mean of the "slope" parameter estimate to be "6.0" with "0.25" error
         And we expect the posterior mean of the "sigma" parameter estimate to be "6.0" with "0.25" error
