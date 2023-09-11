@@ -4,20 +4,21 @@
 
 # External
 from behave.runner import Context
-from behave import given, when
+from behave import given, when, then
 from behave import register_type
+import pymc as pm
 
 # Internal
-from utils import parse_enabled_disabled, snake_case_string
-
-######################################
-# Oracles
-######################################
+from utils import (
+    fit_model, get_dir_path, get_df, get_mu_pp, parse_comparison, parse_enabled_disabled, 
+    plot_bayes_model, plot_preds, snake_case_string
+)
 
 ######################################
 # Types
 ######################################
 
+register_type(QueryComparison=parse_comparison)
 register_type(EnabledDisabled=parse_enabled_disabled)
 register_type(SnakeCaseString=snake_case_string)
 
@@ -31,6 +32,10 @@ def step_impl(context: Context, model_type: str, sampler_longname: str, sampler:
     context.behaviour.bayesian.model_type = model_type
     context.behaviour.bayesian.sampler_longname = sampler_longname
     context.behaviour.bayesian.sampler = sampler
+
+@given('we are fitting a model with a "{likelihood: SnakeCaseString}" likelihood')
+def step_impl(context: Context, likelihood: str) -> None:
+    context.behaviour.bayesian.likelihood = likelihood
 
 @given(
     'we are running "{n_chains:d}" Markov chain Monte Carlo (MCMC) chains with parallelisation "{parallelisation:EnabledDisabled}"'
@@ -51,21 +56,72 @@ def step_impl(context: Context, n_burn: int) -> None:
 def step_impl(context: Context, acceptance_prob: float) -> None:
     context.behaviour.bayesian.acceptance_prob = acceptance_prob
 
-@when(u'we retrieve our data from "{data_file}"')
+@when('we retrieve our data from the "{data_file}" file')
 def step_impl(context: Context, data_file: str) -> None:
     context.behaviour.data_file = data_file
+ 
+@when('we believe that the "{parameter:SnakeCaseString}" parameter could plausibly be "{mu:f}" with a standard deviation of "{sigma:f}"')
+def step_impl(context: Context, parameter: str, mu: float, sigma: float) -> None:
+    context.behaviour.bayesian.priors[parameter] = { 
+        "name": parameter, "mu": mu, "sigma": sigma 
+    }
 
-@when("we fit our Bayesian multilevel model")
-def step_impl(context: Context) -> None:
-    from os.path import join as join_path
-    import pandas as pd
-
+@when('we fit our Bayesian model, then evaluate its "{hdi_prob:f}" highest density intervals (HDIs)')
+def step_impl(context: Context, hdi_prob: float) -> None:
+    context.behaviour.bayesian.hdi_prob = hdi_prob
     behaviour = context.behaviour
     bayesian_def = behaviour.bayesian
     fisheries_def = behaviour.fisheries 
 
-    data_dir = join_path(behaviour.data_dir, fisheries_def.class_, fisheries_def.order, fisheries_def.species) 
-    data_file = join_path(data_dir, behaviour.data_file)
+    data_dir = get_dir_path(behaviour.data_dir, fisheries_def.class_, fisheries_def.order, fisheries_def.species) 
+        
+    df = get_df(
+        data_dir, behaviour.data_file, fisheries_def.years, fisheries_def.sex, 
+        fisheries_def.locations, fisheries_def.response_var, fisheries_def.explanatory_var
+    )
 
-    df = pd.read_csv(data_file)
-    raise NotImplementedError(df)
+    out_dir = get_dir_path("out", fisheries_def.class_, fisheries_def.order, fisheries_def.species) 
+    behaviour.to_yaml(out_dir)
+
+    x = df[fisheries_def.explanatory_var]
+    resp = "y"
+    with pm.Model() as model:
+        fit_model(
+            bayesian_def.model_type, model, bayesian_def.priors, x, 
+            df[fisheries_def.response_var], resp, bayesian_def.likelihood
+        )
+
+        if bayesian_def.parallelisation:
+            cores = bayesian_def.n_chains
+        else:
+            cores = 1
+
+        trace = pm.sample(
+            draws = bayesian_def.n_draws, tune = bayesian_def.n_burn, chains = bayesian_def.n_chains, cores = cores, 
+            target_accept = bayesian_def.acceptance_prob, model = model, random_seed = behaviour.random_seed
+        )
+        pm.compute_log_likelihood(trace)
+        trace = plot_bayes_model(trace, out_dir, hdi_prob)
+
+        mu_pp = get_mu_pp(trace, bayesian_def.model_type, x)
+        plot_preds(
+            mu_pp, out_dir, trace.observed_data[resp], trace.posterior_predictive[resp], x,
+            fisheries_def.response_var, fisheries_def.explanatory_var, hdi_prob
+        )
+
+        context.trace = trace
+
+@then(
+    'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostic to be at "{comparison:QueryComparison}" "{diag_baseline:f}"'
+)
+def step_impl(context: Context, diag_longname: str, diagnostic: str, comparison: str, diag_baseline: float) -> None: 
+    pass
+    import arviz as az
+    hdi_prob = context.behaviour.bayesian["hdi_prob"]
+    trace_df = (
+         az.summary(context.trace, hdi_prob = hdi_prob)
+         .query(f"{diagnostic} {comparison} @diag_baseline")
+    )
+
+    n_rows = trace_df.shape[0] 
+    # raise NotImplementedError(trace_df)

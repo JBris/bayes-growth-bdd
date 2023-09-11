@@ -56,6 +56,9 @@ def step_impl(context: Context, species: str) -> None:
 def step_impl(context: Context, data_source: str) -> None:
     context.behaviour.fisheries.data_source = data_source
 
+@given('we set our random seed to "{random_seed:n}"')
+def step_impl(context: Context, random_seed: int):
+    context.behaviour.random_seed
 
 @when('our sex is "{sex:MaleFemale}"')
 def step_impl(context: Context, sex: str) -> None:
@@ -66,9 +69,9 @@ def step_impl(context: Context, location_list: list[str]) -> None:
     locations = [location_oracle.get(location) for location in location_list]
     context.behaviour.fisheries.locations = locations
 
-@when('we have samples taken between "{lower_data:d}" and "{upper_date:d}"')
-def step_impl(context: Context, lower_data: int, upper_date: int) -> None:
-    context.behaviour.fisheries.years = (lower_data, upper_date)
+@when('we have samples taken between "{lower_date:d}" and "{upper_date:d}"')
+def step_impl(context: Context, lower_date: int, upper_date: int) -> None:
+    context.behaviour.fisheries.years = [lower_date, upper_date]
 
 
 @when(
