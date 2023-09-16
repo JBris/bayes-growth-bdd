@@ -76,10 +76,17 @@ def step_impl(context: Context, location_list: list[str]) -> None:
     locations = [location_oracle.get(location) for location in location_list]
     context.behaviour.fisheries.locations = locations
 
+@when('recorded location data are unavailable')
+def step_impl(context):
+    context.behaviour.fisheries.locations = []
+
 @when('we have samples taken between "{lower_date:d}" and "{upper_date:d}"')
 def step_impl(context: Context, lower_date: int, upper_date: int) -> None:
     context.behaviour.fisheries.years = [lower_date, upper_date]
 
+@when('recorded year data are unavailable')
+def step_impl(context):
+    context.behaviour.fisheries.years = []
 
 @when(
     'our response variable is "{response_var:SnakeCaseString}" ("{response_unit:SnakeCaseString}")'

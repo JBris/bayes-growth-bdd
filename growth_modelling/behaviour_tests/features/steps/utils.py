@@ -73,15 +73,18 @@ def get_df(
             The loaded input dataframe.
     """
     data_file = join_path(data_dir, data_file)
-    lower_year, upper_year = year_interval
-
     df = (
         pd.read_csv(data_file)
         .query("sex == @sex")
-        .query("source in @locations")
-        .query("year >= @lower_year & year <= @upper_year")
         .dropna(subset = [response_var, explanatory_var])
     )
+
+    if len(locations) > 0:
+        df = df.query("source in @locations")
+
+    if len(year_interval) > 0:
+        lower_year, upper_year = year_interval
+        df = df.query("year >= @lower_year & year <= @upper_year")
 
     return df
 
