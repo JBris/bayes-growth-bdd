@@ -11,6 +11,7 @@ from os.path import join as join_path
 import pymc as pm
 
 # Internal
+from data_model import BehaviourTestModel
 from utils import (
     fit_model, get_dir_path, get_df, get_mu_pp, parse_comparison, parse_enabled_disabled, 
     plot_bayes_model, plot_preds, snake_case_string, parse_comma_list
@@ -101,7 +102,8 @@ def step_impl(context: Context) -> None:
     )
 
     out_dir = join_path(
-        "out", fisheries_def.class_type, fisheries_def.order, fisheries_def.species, fisheries_def.sex
+        "out", fisheries_def.class_type, fisheries_def.order, fisheries_def.species, fisheries_def.sex,
+        bayesian_def.model_type, fisheries_def.growth_curve
     ) 
     behaviour.to_yaml(out_dir)
 

@@ -122,42 +122,50 @@ def fit_model(
 
 def vbgm(l_inf: float, k: float, t_0: float, t: np.ndarray) -> np.ndarray:
     """
-    _summary_
+    Fit a von Bertalanffy growth model.
 
     Args:
         L_inf (float): 
-            _description_
+            The asymptotic size. 
         k (float): 
-            _description_
+            The growth coefficient.
         t_0 (float): 
-            _description_
+            The theoretical age when size is zero.
         t (np.ndarray): 
-            _description_
+            The age.
 
     Returns:
-        np.ndarray: _description_
+        np.ndarray: 
+            The size at time t.
     """
     L_t = l_inf * (1 - np.exp(-k * (t - t_0))) 
     return L_t
 
-def bvbgm(l_inf: float, k: float, t_0: float, t: np.ndarray) -> np.ndarray:
+def bvbgm(l_inf: float, k: float, t_0: float, h: float, t_h: float, t: np.ndarray) -> np.ndarray:
     """
-    _summary_
+    Fit a biphasic von Bertalanffy growth model.
 
     Args:
-        l_inf (float): 
-            _description_
+        L_inf (float): 
+            The asymptotic size. 
         k (float): 
-            _description_
+            The growth coefficient.
         t_0 (float): 
-            _description_
+            The theoretical age when size is zero.
+        h (float):
+            The magnitude of the maximum difference in the size-at-age 
+            between monophasic and biphasic parameterisations.
+        t_h (float):
+            The time of the phasic shift.
         t (np.ndarray): 
-            _description_
+            The age.
 
     Returns:
-        np.ndarray: _description_
+        np.ndarray: 
+            The size at time t.
     """
-    L_t = l_inf * (1. - np.exp(-k * (t - t_0))) 
+    A_t = 1 - (h / (1 + (t - t_h)**2))
+    L_t = l_inf * (1. - np.exp(-k * A_t * (t - t_0))) 
     return L_t
 
 growth_func_map = {

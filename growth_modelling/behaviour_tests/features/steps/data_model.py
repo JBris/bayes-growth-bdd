@@ -53,48 +53,50 @@ class BaseDataModel(ABC):
 @dataclass
 class BayesianModel(BaseDataModel):
     """Class for Bayesian Model parameters."""
-
-    model_type: str = "linear"
-    likelihood: str = "gaussian"
-    sampler_longname: str = "No U-Turn Sampler"
-    sampler: str = "nuts"
-    n_draws: int = 2000
-    n_burn: int = 1000
-    acceptance_prob: float = 0.8
-    n_chains: int = 1
-    parallelisation: bool = True
-    hdi_prob: float = 0.95
-    priors: dict = field(default_factory=dict)  
-    factors: list[str] = field(default_factory=list)
+    def __init__(self) -> None: 
+        self.model_type: str = "linear"
+        self.likelihood: str = "gaussian"
+        self.sampler_longname: str = "No U-Turn Sampler"
+        self.sampler: str = "nuts"
+        self.n_draws: int = 2000
+        self.n_burn: int = 1000
+        self.acceptance_prob: float = 0.8
+        self.n_chains: int = 1
+        self.parallelisation: bool = True
+        self.hdi_prob: float = 0.95
+        self.priors: dict = {}
+        self.factors: list[str] = []
 
 @dataclass
 class FisheriesModel(BaseDataModel):
     """Class for Fisheries Model parameters."""
 
-    class_type: str = "chondrichthyes"
-    order: str = "carcharhiniformes"
-    family: str = "carcharhinidae"
-    species: str = "carcharhinus_limbatus"
-    data_source: str = ""
-    sex: str = "female"
-    locations: list[str] = field(default_factory=list)
-    years: list[int] = field(default_factory=list)
-    response_var: str = "fl"
-    response_unit: str = "cm"
-    explanatory_var: str = "age"
-    explanatory_unit: str = "years"
-    growth_curve: str = ""
-    growth_curve_longname: str = ""
+    def __init__(self) -> None: 
+        self.class_type: str = "chondrichthyes"
+        self.order: str = "carcharhiniformes"
+        self.family: str = "carcharhinidae"
+        self.species: str = "carcharhinus_limbatus"
+        self.data_source: str = ""
+        self.sex: str = "female"
+        self.locations: list[str] = []
+        self.years: list[int] = []
+        self.response_var: str = "fl"
+        self.response_unit: str = "cm"
+        self.explanatory_var: str = "age"
+        self.explanatory_unit: str = "years"
+        self.growth_curve: str = "linear"
+        self.growth_curve_longname: str = "linear"
     
 @dataclass
 class BehaviourTestModel(BaseDataModel):
     """Class for behaviour testing parameters."""
 
-    bayesian: BayesianModel = BayesianModel()
-    fisheries: FisheriesModel = FisheriesModel()
-    data_dir: str = join_path("..", "data") 
-    data_file: str = "data.csv"
-    random_seed: int = 100
+    def __init__(self) -> None: 
+        self.bayesian: BayesianModel = BayesianModel()
+        self.fisheries: FisheriesModel = FisheriesModel()
+        self.data_dir: str = join_path("..", "data") 
+        self.data_file: str = "data.csv"
+        self.random_seed: int = 100
     
     def to_dict(self) -> dict:
         """
