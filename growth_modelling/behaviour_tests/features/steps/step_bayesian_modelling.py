@@ -68,9 +68,12 @@ def step_impl(context: Context, parameter: str, mu: float, sigma: float) -> None
         "name": parameter, "mu": mu, "sigma": sigma 
     }
 
-@when('we fit our Bayesian model, then evaluate its "{hdi_prob:f}" highest density intervals (HDIs)')
+@when('we aim to evaluate the "{hdi_prob:f}" highest posterior density intervals (HDIs) of our parameter estimates')
 def step_impl(context: Context, hdi_prob: float) -> None:
     context.behaviour.bayesian.hdi_prob = hdi_prob
+
+@when('we fit our Bayesian model')
+def step_impl(context: Context) -> None:
     behaviour = context.behaviour
     bayesian_def = behaviour.bayesian
     fisheries_def = behaviour.fisheries 
@@ -105,12 +108,12 @@ def step_impl(context: Context, hdi_prob: float) -> None:
             target_accept = bayesian_def.acceptance_prob, model = model, random_seed = behaviour.random_seed
         )
         pm.compute_log_likelihood(trace)
-        trace = plot_bayes_model(trace, out_dir, hdi_prob)
+        trace = plot_bayes_model(trace, out_dir, bayesian_def.hdi_prob)
 
         mu_pp = get_mu_pp(trace, bayesian_def.model_type, x)
         plot_preds(
             mu_pp, out_dir, trace.observed_data[resp], trace.posterior_predictive[resp], x,
-            fisheries_def.response_var, fisheries_def.explanatory_var, hdi_prob
+            fisheries_def.response_var, fisheries_def.explanatory_var, bayesian_def.hdi_prob
         )
 
         context.trace = trace
