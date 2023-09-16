@@ -26,7 +26,7 @@ class BaseDataModel(ABC):
         """
         return vars(self)
 
-    def to_yaml(self, out_dir: str, outfile: str = "config.yaml", default_flow_style: bool = False) -> str:
+    def to_yaml(self, out_dir: str, outfile: str = "meta.yaml", default_flow_style: bool = False) -> str:
         """
         Convert the data model to YAML, and write to file.
 

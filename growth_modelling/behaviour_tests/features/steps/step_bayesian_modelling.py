@@ -111,7 +111,7 @@ def step_impl(context: Context) -> None:
         fit_model(
             bayesian_def.model_type, model, bayesian_def.priors, x, 
             df[fisheries_def.response_var], resp, bayesian_def.likelihood, 
-            bayesian_def.factors
+            bayesian_def.factors, fisheries_def.growth_curve
         )
 
         if bayesian_def.parallelisation:

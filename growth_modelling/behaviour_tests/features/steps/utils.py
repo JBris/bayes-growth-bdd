@@ -87,7 +87,7 @@ def get_df(
 
 def fit_model(
     model_type: str, model: pm.Model, priors: dict, x: np.ndarray, y: np.ndarray, 
-    resp: str, likelihood: str, factors: list[str]
+    resp: str, likelihood: str, factors: list[str], growth_curve: str = ""
 ) -> None:
     """
     Fit a Bayesian model.
@@ -109,11 +109,45 @@ def fit_model(
             The model likelihood.
         factors (list):
             The list of model factors.
+        growth_curve: (str):
+            The nonlinear growth curve.
     """
     if model_type == "nonlinear":
-        fit_linear_model(model, priors, x, y, resp, likelihood, factors)
+        fit_nonlinear_model(model, priors, x, y, resp, likelihood, factors, growth_curve)
     else:
         fit_linear_model(model, priors, x, y, resp, likelihood, factors)
+
+def fit_nonlinear_model(
+        model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, 
+        factors: list[str], growth_curve: str = ""
+    ) -> None:
+    """
+    Fit a nonlinear Bayesian model.
+
+    Args:
+        model (pm.Model): 
+            The PyMC model.
+        priors (dict): 
+            The model priors.
+        x (np.ndarray): 
+            The explanatory variable data.
+        y (np.ndarray): 
+            The response variable data.
+        resp (str): 
+            The model response.
+        likelihood (str): 
+            The model likelihood.
+        factors (list):
+            The list of model factors.
+        growth_curve: (str):
+            The nonlinear growth curve.
+    """
+    sigma = pm.HalfStudentT("sigma", nu = 3, sigma = 10)
+    intercept = pm.Normal(**priors.get("intercept"))
+    slope = pm.Normal(**priors.get("slope"))
+
+    model_likelihood = likelihood_oracle.get(likelihood)
+    obs = model_likelihood(resp, mu=intercept + slope * x, sigma=sigma, observed=y)
 
 def fit_linear_model(
         model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, factors: list[str]

@@ -16,4 +16,4 @@ export MLFLOW_S3_ENDPOINT_URL=$MLFLOW_S3_ENDPOINT_URL
 
 cd growth_modelling/behaviour_tests
 
-behave --tags carcharhinus_tilstoni --show-timings --junit
+behave --tags carcharhinus_tilstoni,carcharhinus_limbatus,carcharhinus_sorrah --show-timings --junit
