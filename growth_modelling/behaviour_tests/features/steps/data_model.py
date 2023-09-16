@@ -71,7 +71,7 @@ class BayesianModel(BaseDataModel):
 class FisheriesModel(BaseDataModel):
     """Class for Fisheries Model parameters."""
 
-    class_: str = "chondrichthyes"
+    class_type: str = "chondrichthyes"
     order: str = "carcharhiniformes"
     family: str = "carcharhinidae"
     species: str = "carcharhinus_limbatus"

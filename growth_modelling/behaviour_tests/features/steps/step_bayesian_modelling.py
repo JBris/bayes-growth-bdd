@@ -93,7 +93,7 @@ def step_impl(context: Context) -> None:
     bayesian_def = behaviour.bayesian
     fisheries_def = behaviour.fisheries 
 
-    data_dir = get_dir_path(behaviour.data_dir, fisheries_def.class_, fisheries_def.order, fisheries_def.species) 
+    data_dir = get_dir_path(behaviour.data_dir, fisheries_def.class_type, fisheries_def.order, fisheries_def.species) 
         
     df = get_df(
         data_dir, behaviour.data_file, fisheries_def.years, fisheries_def.sex, 
@@ -101,7 +101,7 @@ def step_impl(context: Context) -> None:
     )
 
     out_dir = join_path(
-        "out", fisheries_def.class_, fisheries_def.order, fisheries_def.species, fisheries_def.sex
+        "out", fisheries_def.class_type, fisheries_def.order, fisheries_def.species, fisheries_def.sex
     ) 
     behaviour.to_yaml(out_dir)
 

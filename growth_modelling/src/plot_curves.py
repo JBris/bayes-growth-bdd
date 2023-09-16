@@ -58,10 +58,10 @@ def plot_curves(
     extract_val = lambda key: species_df[key].values.item()
 
     species = extract_val("species")
-    class_ = extract_val("class")
+    class_type = extract_val("class")
     order = extract_val("order")
 
-    in_dir = join_path(data_dir, class_, order, species)
+    in_dir = join_path(data_dir, class_type, order, species)
     datafile = join_path(in_dir, infile)
     data_df = pd.read_csv(datafile)
 
@@ -96,7 +96,7 @@ def plot_curves(
     mlflow.set_tag("species", species)
 
     mlflow.log_param("species", species)
-    mlflow.log_param("class", class_)
+    mlflow.log_param("class", class_type)
     mlflow.log_param("order", order)
 
     def log_series(df, interval=0.01):

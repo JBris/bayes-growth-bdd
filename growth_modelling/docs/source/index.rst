@@ -11,6 +11,7 @@ Bayesian Growth Modelling Behavior-Driven Development
    :caption: Contents:
 
    pipelines/index.rst
+   behaviour_testing/index.rst
 
 Indices and tables
 ==================

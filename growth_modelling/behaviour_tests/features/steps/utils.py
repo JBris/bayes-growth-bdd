@@ -24,14 +24,14 @@ likelihood_oracle = {
 # Functions
 ######################################
 
-def get_dir_path(base_dir: str, class_: str, order: str, species: str) -> str:
+def get_dir_path(base_dir: str, class_name: str, order: str, species: str) -> str:
     """
     Get the combined directory path.
 
     Args:
         base_dir (str): 
             The base directory.
-        class_ (str): 
+        class_name (str): 
             The taxonomic class.
         order (str): 
             The taxonomic order.
@@ -41,7 +41,7 @@ def get_dir_path(base_dir: str, class_: str, order: str, species: str) -> str:
     Returns:
         str: The combined directory path.
     """
-    data_dir = join_path(base_dir, class_, order, species) 
+    data_dir = join_path(base_dir, class_name, order, species) 
     return data_dir
 
 

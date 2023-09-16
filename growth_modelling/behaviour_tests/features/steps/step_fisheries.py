@@ -41,9 +41,9 @@ def step_impl(context, growth_curve_longname: str, growth_curve: str) -> None:
     context.behaviour.fisheries.growth_curve_longname = growth_curve_longname
     context.behaviour.fisheries.growth_curve = growth_curve
 
-@given('our class is "{class_:SnakeCaseString}"')
-def step_impl(context: Context, class_: str) -> None:
-    context.behaviour.fisheries.class_ = class_
+@given('our class is "{class_type:SnakeCaseString}"')
+def step_impl(context: Context, class_type: str) -> None:
+    context.behaviour.fisheries.class_type = class_type
 
 
 @given('our order is "{order:SnakeCaseString}"')

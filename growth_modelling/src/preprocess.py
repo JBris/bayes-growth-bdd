@@ -48,11 +48,11 @@ def write_species_csv(
     extract_val = lambda key: species_df[key].values.item()
 
     species = extract_val("species")
-    class_ = extract_val("class")
+    class_type = extract_val("class")
     order = extract_val("order")
 
     # Make dirs
-    out_dir = join_path(data_dir, class_, order, species)
+    out_dir = join_path(data_dir, class_type, order, species)
     Path(out_dir).mkdir(parents=True, exist_ok=True)
 
     # Load data
