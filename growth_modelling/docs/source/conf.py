@@ -46,3 +46,7 @@ html_static_path = ["_static"]
 
 # The master toctree document.
 master_doc = "index"
+
+# Datetime
+
+today_fmt = '%d/%m/%y'
