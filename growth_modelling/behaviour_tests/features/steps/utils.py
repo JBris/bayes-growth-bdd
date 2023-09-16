@@ -120,12 +120,57 @@ def fit_model(
     else:
         fit_linear_model(model, priors, x, y, resp, likelihood, factors)
 
+def vbgm(l_inf: float, k: float, t_0: float, t: np.ndarray) -> np.ndarray:
+    """
+    _summary_
+
+    Args:
+        L_inf (float): 
+            _description_
+        k (float): 
+            _description_
+        t_0 (float): 
+            _description_
+        t (np.ndarray): 
+            _description_
+
+    Returns:
+        np.ndarray: _description_
+    """
+    L_t = l_inf * (1 - np.exp(-k * (t - t_0))) 
+    return L_t
+
+def bvbgm(l_inf: float, k: float, t_0: float, t: np.ndarray) -> np.ndarray:
+    """
+    _summary_
+
+    Args:
+        l_inf (float): 
+            _description_
+        k (float): 
+            _description_
+        t_0 (float): 
+            _description_
+        t (np.ndarray): 
+            _description_
+
+    Returns:
+        np.ndarray: _description_
+    """
+    L_t = l_inf * (1. - np.exp(-k * (t - t_0))) 
+    return L_t
+
+growth_func_map = {
+    "vbgm": vbgm,
+    "bvbgm" : bvbgm
+}
+
 def fit_nonlinear_model(
         model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, 
         factors: list[str], growth_curve: str = ""
     ) -> None:
     """
-    Fit a nonlinear Bayesian model.
+    Fit a nonlinear Bayesian growth model.
 
     Args:
         model (pm.Model): 
@@ -145,13 +190,15 @@ def fit_nonlinear_model(
         growth_curve: (str):
             The nonlinear growth curve.
     """
-    sigma = pm.HalfStudentT("sigma", nu = 3, sigma = 10)
-    intercept = pm.Normal(**priors.get("intercept"))
-    slope = pm.Normal(**priors.get("slope"))
-
     model_likelihood = likelihood_oracle.get(likelihood)
-    obs = model_likelihood(resp, mu=intercept + slope * x, sigma=sigma, observed=y)
+    sigma = pm.HalfStudentT("sigma", nu = 3, sigma = 10)
+    kwargs = { "t": x }
+    for k in priors:
+        kwargs[k] = pm.Normal(**priors.get(k))
 
+    growth_func = growth_func_map.get(growth_curve, "vbgm")
+    obs = model_likelihood(resp, mu = growth_func(**kwargs), sigma=sigma, observed=y)
+        
 def fit_linear_model(
         model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, factors: list[str]
     ) -> None:
@@ -228,7 +275,7 @@ def plot_bayes_model(trace, out_dir: str, hdi_prob: float = 0.95):
 
     return trace
 
-def get_mu_pp(trace, model_type: str, x: np.ndarray) -> xr.DataArray:
+def get_mu_pp(trace, model_type: str, x: np.ndarray, priors: dict, growth_curve: str = "") -> xr.DataArray:
     """
     Get the mean posterior predictions.
 
@@ -239,12 +286,25 @@ def get_mu_pp(trace, model_type: str, x: np.ndarray) -> xr.DataArray:
             The model type.
         x (np.ndarray): 
             The explanatory variable values.
+        priors (dict):  
+            The model priors.
+        growth_curve: (str):
+            The nonlinear growth curve.
 
     Returns:
         xr.DataArray: The mean posterior predictions.
     """
     post = trace.posterior
-    mu_pp = post["intercept"] + post["slope"] * xr.DataArray(x, dims=["obs_id"])
+
+    if model_type == "nonlinear":
+        kwargs = { "t": xr.DataArray(x, dims=["obs_id"]) }
+        for k in priors:
+            kwargs[k] = post[k]
+
+        growth_func = growth_func_map.get(growth_curve, "vbgm")
+        mu_pp = growth_func(**kwargs)
+    else:
+        mu_pp = post["intercept"] + post["slope"] * xr.DataArray(x, dims=["obs_id"])
 
     return mu_pp
 

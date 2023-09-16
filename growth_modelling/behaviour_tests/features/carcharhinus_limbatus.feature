@@ -4,9 +4,9 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         Given we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
         And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
-        And we are taking "500" draws per MCMC chain
-        And we specify "500" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.8"
+        And we are taking "1000" draws per MCMC chain
+        And we specify "1000" samples for our burn-in period
+        And our MCMC samples have an acceptance probability of "0.9"
         And our class is "Chondrichthyes"
         And our order is "Carcharhiniformes"
         And our family is "Carcharhinidae"
@@ -22,20 +22,19 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And we have samples taken between "2004" and "2013"
         And our response variable is "Fork Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "intercept" parameter could plausibly be "50.0" with a standard deviation of "25.0"
-        And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "25.0"
+        And we believe that the "L_inf" parameter could plausibly be "200.0" with a standard deviation of "20.0"
+        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
         And we fit our Bayesian model
-    # Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
-    # And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-    # And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
-    # And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.035"
-    # And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
-    # And we expect the posterior mean of the "intercept" parameter estimate to be "55.0" with "0.05" error
-    # And we expect the posterior mean of the "slope" parameter estimate to be "6.0" with "0.25" error
-    # And we expect the posterior mean of the "sigma" parameter estimate to be "6.0" with "0.25" error
+        Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
+        And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
+
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female blacktip sharks (Carcharhinus limbatus)
@@ -45,17 +44,15 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And we have samples taken between "2004" and "2013"
         And our response variable is "Fork Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "intercept" parameter could plausibly be "50.0" with a standard deviation of "25.0"
-        And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "25.0"
+        And we believe that the "L_inf" parameter could plausibly be "220.0" with a standard deviation of "20.0"
+        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
         And we fit our Bayesian model
-# Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
-# And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-# And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
-# And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.035"
-# And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
-# And we expect the posterior mean of the "intercept" parameter estimate to be "54.0" with "0.05" error
-# And we expect the posterior mean of the "slope" parameter estimate to be "6.0" with "0.25" error
-# And we expect the posterior mean of the "sigma" parameter estimate to be "6.0" with "0.25" error
+        Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
+        And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"

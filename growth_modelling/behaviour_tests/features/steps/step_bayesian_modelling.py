@@ -105,13 +105,14 @@ def step_impl(context: Context) -> None:
     ) 
     behaviour.to_yaml(out_dir)
 
-    x = df[fisheries_def.explanatory_var]
+    x = df[fisheries_def.explanatory_var].values
+    y = df[fisheries_def.response_var].values
     resp = "y"
     with pm.Model() as model:
         fit_model(
             bayesian_def.model_type, model, bayesian_def.priors, x, 
-            df[fisheries_def.response_var], resp, bayesian_def.likelihood, 
-            bayesian_def.factors, fisheries_def.growth_curve
+            y, resp, bayesian_def.likelihood, bayesian_def.factors, 
+            fisheries_def.growth_curve
         )
 
         if bayesian_def.parallelisation:
@@ -126,7 +127,7 @@ def step_impl(context: Context) -> None:
         pm.compute_log_likelihood(trace)
         trace = plot_bayes_model(trace, out_dir, bayesian_def.hdi_prob)
 
-        mu_pp = get_mu_pp(trace, bayesian_def.model_type, x)
+        mu_pp = get_mu_pp(trace, bayesian_def.model_type, x, bayesian_def.priors, fisheries_def.growth_curve)
         plot_preds(
             mu_pp, out_dir, trace.observed_data[resp], trace.posterior_predictive[resp], x,
             fisheries_def.response_var, fisheries_def.explanatory_var, bayesian_def.hdi_prob
