@@ -36,6 +36,10 @@ register_type(CommaList=parse_comma_list)
 # Steps
 ######################################
 
+@given('our growth curve is a "{growth_curve_longname}" ("{growth_curve:SnakeCaseString}")')
+def step_impl(context, growth_curve_longname: str, growth_curve: str) -> None:
+    context.behaviour.fisheries.growth_curve_longname = growth_curve_longname
+    context.behaviour.fisheries.growth_curve = growth_curve
 
 @given('our class is "{class_:SnakeCaseString}"')
 def step_impl(context: Context, class_: str) -> None:

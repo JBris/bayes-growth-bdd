@@ -13,8 +13,17 @@ import pymc as pm
 # Internal
 from utils import (
     fit_model, get_dir_path, get_df, get_mu_pp, parse_comparison, parse_enabled_disabled, 
-    plot_bayes_model, plot_preds, snake_case_string
+    plot_bayes_model, plot_preds, snake_case_string, parse_comma_list
 )
+
+######################################
+# Oracles
+######################################
+
+factor_oracle = {
+    "year": "year",
+    "location": "source"
+}
 
 ######################################
 # Types
@@ -23,6 +32,7 @@ from utils import (
 register_type(QueryComparison=parse_comparison)
 register_type(EnabledDisabled=parse_enabled_disabled)
 register_type(SnakeCaseString=snake_case_string)
+register_type(CommaList=parse_comma_list)
 
 ######################################
 # Steps
@@ -68,6 +78,11 @@ def step_impl(context: Context, parameter: str, mu: float, sigma: float) -> None
         "name": parameter, "mu": mu, "sigma": sigma 
     }
 
+@when('we fit random intercepts to "{factor_list:CommaList}"')
+def step_impl(context, factor_list: list[str]) -> None:
+    factors = [ factor_oracle.get(factor) for factor in factor_list ]
+    context.behaviour.bayesian.factors = factors
+
 @when('we aim to evaluate the "{hdi_prob:f}" highest posterior density intervals (HDIs) of our parameter estimates')
 def step_impl(context: Context, hdi_prob: float) -> None:
     context.behaviour.bayesian.hdi_prob = hdi_prob
@@ -95,7 +110,8 @@ def step_impl(context: Context) -> None:
     with pm.Model() as model:
         fit_model(
             bayesian_def.model_type, model, bayesian_def.priors, x, 
-            df[fisheries_def.response_var], resp, bayesian_def.likelihood
+            df[fisheries_def.response_var], resp, bayesian_def.likelihood, 
+            bayesian_def.factors
         )
 
         if bayesian_def.parallelisation:

@@ -65,6 +65,7 @@ class BayesianModel(BaseDataModel):
     parallelisation: bool = True
     hdi_prob: float = 0.95
     priors: dict = field(default_factory=dict)  
+    factors: list[str] = field(default_factory=list)
 
 @dataclass
 class FisheriesModel(BaseDataModel):
@@ -82,7 +83,9 @@ class FisheriesModel(BaseDataModel):
     response_unit: str = "cm"
     explanatory_var: str = "age"
     explanatory_unit: str = "years"
-
+    growth_curve: str = ""
+    growth_curve_longname: str = ""
+    
 @dataclass
 class BehaviourTestModel(BaseDataModel):
     """Class for behaviour testing parameters."""

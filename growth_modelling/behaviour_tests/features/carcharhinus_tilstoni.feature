@@ -23,6 +23,7 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And our explanatory variable is "Age" ("years")
         And we believe that the "intercept" parameter could plausibly be "55.0" with a standard deviation of "10.0"
         And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
         And we fit our Bayesian model
@@ -44,6 +45,7 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And our explanatory variable is "Age" ("years")
         And we believe that the "intercept" parameter could plausibly be "55.0" with a standard deviation of "10.0"
         And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
         And we fit our Bayesian model

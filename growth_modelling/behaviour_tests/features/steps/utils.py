@@ -87,7 +87,7 @@ def get_df(
 
 def fit_model(
     model_type: str, model: pm.Model, priors: dict, x: np.ndarray, y: np.ndarray, 
-    resp: str, likelihood: str
+    resp: str, likelihood: str, factors: list[str]
 ) -> None:
     """
     Fit a Bayesian model.
@@ -107,10 +107,17 @@ def fit_model(
             The model response.
         likelihood (str): 
             The model likelihood.
+        factors (list):
+            The list of model factors.
     """
-    fit_linear_model(model, priors, x, y, resp, likelihood)
+    if model_type == "nonlinear":
+        fit_linear_model(model, priors, x, y, resp, likelihood, factors)
+    else:
+        fit_linear_model(model, priors, x, y, resp, likelihood, factors)
 
-def fit_linear_model(model: pm.Model, priors: dict, x, y, resp: str, likelihood: str) -> None:
+def fit_linear_model(
+        model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, factors: list[str]
+    ) -> None:
     """
     Fit a linear Bayesian model.
 
@@ -127,6 +134,8 @@ def fit_linear_model(model: pm.Model, priors: dict, x, y, resp: str, likelihood:
             The model response.
         likelihood (str): 
             The model likelihood.
+        factors (list):
+            The list of model factors.
     """
     sigma = pm.HalfStudentT("sigma", nu = 3, sigma = 10)
     intercept = pm.Normal(**priors.get("intercept"))
@@ -280,6 +289,7 @@ def parse_comma_list(text: str) -> list:
     word_list: list[str] = (
         text
         .replace(", and", ",")
+        .replace(" and ", ",")
         .replace(" ", "")
         .split(",")
     )
