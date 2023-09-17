@@ -31,7 +31,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for male spot-tail sharks (Carcharhinus sorrah)
         Given our growth curve is a "von Bertalanffy growth model (Beverton, 1957)" ("VBGM")
-        When our sex is "Male"
+        And our sex is "Male"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
@@ -42,7 +42,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
-        And we fit our Bayesian model
+        When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
@@ -52,7 +52,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     @fisheries_modelling
     Scenario: Fit a biphasic von Bertalanffy growth model for male spot-tail sharks (Carcharhinus sorrah)
         Given our growth curve is a "biphasic von Bertalanffy growth model (Soriano et al., 1992)" ("BVBGM")
-        When our sex is "Male"
+        And our sex is "Male"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
@@ -65,7 +65,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
-        And we fit our Bayesian model
+        When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
@@ -74,16 +74,16 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
 
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for male spot-tail sharks (Carcharhinus sorrah)
-        When our sex is "Male"
+        Given our sex is "Male"
         And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
         And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
         And our method to estimate the model weights is "stacking"
-        And we compare the following candidate models "VBGM and BVBGM"
+        When we compare the following candidate models "VBGM and BVBGM"
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female spot-tail sharks (Carcharhinus sorrah)
         Given our growth curve is a "von Bertalanffy growth model (Beverton, 1957)" ("VBGM")
-        When our sex is "Female"
+        And our sex is "Female"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
@@ -94,7 +94,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
-        And we fit our Bayesian model
+        When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
@@ -104,7 +104,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     @fisheries_modelling
     Scenario: Fit a biphasic von Bertalanffy growth model for female spot-tail sharks (Carcharhinus sorrah)
         Given our growth curve is a "biphasic von Bertalanffy growth model (Soriano et al., 1992)" ("BVBGM")
-        When our sex is "Female"
+        And our sex is "Female"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
@@ -117,7 +117,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
-        And we fit our Bayesian model
+        When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
@@ -126,9 +126,9 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
 
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for female spot-tail sharks (Carcharhinus sorrah)
-        When our sex is "Female"
+        Given our sex is "Female"
         And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
         And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
         And our method to estimate the model weights is "stacking"
-        And we compare the following candidate models "VBGM and BVBGM"
+        When we compare the following candidate models "VBGM and BVBGM"
 

@@ -121,12 +121,12 @@ def step_impl(context: Context, acceptance_prob: float) -> None:
     context.behaviour.bayesian.acceptance_prob = acceptance_prob
 
 
-@when('we retrieve our data from the "{data_file}" file')
+@given('we retrieve our data from the "{data_file}" file')
 def step_impl(context: Context, data_file: str) -> None:
     context.behaviour.data_file = data_file
 
 
-@when(
+@given(
     'we believe that the "{parameter:SnakeCaseString}" parameter could plausibly be "{mu:f}" with a standard deviation of "{sigma:f}"'
 )
 def step_impl(context: Context, parameter: str, mu: float, sigma: float) -> None:
@@ -137,7 +137,7 @@ def step_impl(context: Context, parameter: str, mu: float, sigma: float) -> None
     }
 
 
-@when(
+@given(
     'we believe that the "{parameter:SnakeCaseString}" parameter could plausibly be "{mu:f}" with a standard deviation of "{sigma:f}" and a "{bound_key:SnakeCaseString}" bound of "{bound}"'
 )
 def step_impl(
@@ -153,17 +153,34 @@ def step_impl(
     context.behaviour.bayesian.priors[parameter] = prior
 
 
-@when('we fit random intercepts to "{factor_list:CommaList}"')
+@given('we fit random intercepts to "{factor_list:CommaList}"')
 def step_impl(context, factor_list: list[str]) -> None:
     factors = [factor_oracle.get(factor) for factor in factor_list]
     context.behaviour.bayesian.factors = factors
 
 
-@when(
+@given(
     'we aim to evaluate the "{hdi_prob:f}" highest posterior density intervals (HDIs) of our parameter estimates'
 )
 def step_impl(context: Context, hdi_prob: float) -> None:
     context.behaviour.bayesian.hdi_prob = hdi_prob
+
+
+@given('our assessment metric is "{metric_longname}" ("{metric:SnakeCaseString}")')
+def step_impl(context: Context, metric_longname: str, metric: str) -> None:
+    context.behaviour.bayesian.metric_longname = metric_longname
+    context.behaviour.bayesian.metric = metric
+
+
+@given('our assessment method is "{method_longname}" ("{method:SnakeCaseString}")')
+def step_impl(context: Context, method_longname: str, method: str) -> None:
+    context.behaviour.bayesian.method_longname = method_longname
+    context.behaviour.bayesian.method = method
+
+
+@given('our method to estimate the model weights is "{model_weights}"')
+def step_impl(context: Context, model_weights: str) -> None:
+    context.behaviour.bayesian.model_weights = model_weights
 
 
 @when("we fit our Bayesian model")
@@ -254,21 +271,7 @@ def step_impl(context: Context) -> None:
         trace_key = get_trace_key(context)
         context.traces[trace_key] = trace
 
-
-@when('our assessment metric is "{metric_longname}" ("{metric:SnakeCaseString}")')
-def step_impl(context: Context, metric_longname: str, metric: str) -> None:
-    context.behaviour.bayesian.metric_longname = metric_longname
-    context.behaviour.bayesian.metric = metric
-
-
-@when('our assessment method is "{method_longname}" ("{method:SnakeCaseString}")')
-def step_impl(context: Context, method_longname: str, method: str) -> None:
-    context.behaviour.bayesian.method_longname = method_longname
-    context.behaviour.bayesian.method = method
-
-@when('our method to estimate the model weights is "{model_weights}"')
-def step_impl(context: Context, model_weights: str) -> None:
-    context.behaviour.bayesian.model_weights = model_weights
+        behaviour.to_yaml(out_dir)
 
 @when('we compare the following candidate models "{growth_curve_list:CommaList}"')
 def step_impl(context: Context, growth_curve_list: list[str]) -> None:
@@ -303,6 +306,8 @@ def step_impl(context: Context, growth_curve_list: list[str]) -> None:
         model_scores_df, plot_standard_error=True, plot_ic_diff=True, order_by_rank=True, legend=True, title=True
     )
     plt.savefig(outfile)
+
+    context.model_scores = model_scores_df
 
 @then(
     'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostics to all be "{comparison:QueryComparison}" "{diag_baseline:f}"'

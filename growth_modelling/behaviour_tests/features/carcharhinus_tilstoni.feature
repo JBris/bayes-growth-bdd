@@ -16,7 +16,7 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
 
     @fisheries_modelling
     Scenario: Fit a linear model for male Australian blacktip sharks (Carcharhinus tilstoni)
-        When our sex is "Male"
+        Given our sex is "Male"
         And we have samples taken from "New South Wales A, and Queensland A"
         And we have samples taken between "2007" and "2012"
         And our response variable is "Fork Length" ("cm")
@@ -26,7 +26,7 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
-        And we fit our Bayesian model
+        When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
@@ -38,7 +38,7 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
 
     @fisheries_modelling
     Scenario: Fit a linear model for female Australian blacktip sharks (Carcharhinus tilstoni)
-        When our sex is "Female"
+        Given our sex is "Female"
         And we have samples taken from "New South Wales A, and Queensland A"
         And we have samples taken between "2007" and "2012"
         And our response variable is "Fork Length" ("cm")
@@ -48,7 +48,7 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
-        And we fit our Bayesian model
+        When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"

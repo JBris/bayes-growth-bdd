@@ -55,6 +55,7 @@ def before_scenario(context: Context, scenario: Scenario) -> None:
 
     if fisheries_modelling_tag in tags:
         context.behaviour = BehaviourTestModel()
+        context.model_scores = {}
 
 
 def after_scenario(context: Context, scenario: Scenario) -> None:
@@ -72,3 +73,5 @@ def after_scenario(context: Context, scenario: Scenario) -> None:
 
     if fisheries_modelling_tag in tags:
         context.behaviour = None
+        context.model_scores = None
+        
