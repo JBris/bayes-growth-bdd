@@ -238,6 +238,9 @@ def step_impl(context: Context) -> None:
         else:
             cores = 1
 
+        pgm = pm.model_to_graphviz(model = model)
+        pgm.render(format = "png", directory = out_dir, filename = "model_graph")
+
         trace = pm.sample(
             init = "jitter+adapt_full",
             draws=bayesian_def.n_draws,
