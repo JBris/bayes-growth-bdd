@@ -99,6 +99,7 @@ class ExperimentModel(BaseDataModel):
     def __init__(self) -> None:
         self.statement : str = ""
         self.hypothesis : str = ""
+        self.aim : str = ""
 
 
 @dataclass

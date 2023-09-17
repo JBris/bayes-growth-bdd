@@ -23,7 +23,7 @@ def get_context_text(context: Context) -> str:
     """
     context_test = (
         str(context.text)
-        .replace("\n", "")
+        .replace("\n", " ")
         .replace("\r", "")
         .replace("\\", "")
     )
@@ -33,10 +33,14 @@ def get_context_text(context: Context) -> str:
 # Steps
 ######################################
 
-@given('our statement that')
+@given('that our statement is')
 def step_impl(context: Context) -> None:
     context.behaviour.experiment.statement = get_context_text(context)
 
-@given('our hypothesis that')
+@given('that our hypothesis is')
 def step_impl(context: Context) -> None:
     context.behaviour.experiment.hypothesis = get_context_text(context)
+
+@given('that our aim is to')
+def step_impl(context: Context) -> None:
+    context.behaviour.experiment.aim = get_context_text(context)

@@ -42,7 +42,7 @@ register_type(CommaList=parse_comma_list)
 def step_impl(context, growth_curve_longname: str, growth_curve: str) -> None:
     context.behaviour.fisheries.growth_curve_longname = growth_curve_longname
     context.behaviour.fisheries.growth_curve = growth_curve
-
+    
 
 @given('our class is "{class_type:SnakeCaseString}"')
 def step_impl(context: Context, class_type: str) -> None:

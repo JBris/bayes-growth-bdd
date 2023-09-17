@@ -1,15 +1,19 @@
 @carcharhinus_sorrah
 Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     Background:
-        Given our statement that:
+        Given that our statement is:
             """
-            Energy reallocation from somatic growth to sexual reproduction at the onset of sexual maturity
-            contributes to decreases in somatic growth rates following the age-at-maturity
+            The energy reallocation from somatic growth towards sexual reproduction that occurs beyond the age-at-maturity
+            contributes to decreases in somatic growth rates following the onset of sexual maturity. Reproductive
+            investment is particularly high for chondrichthyans when compared to teleosts. Hence, changes in the growth
+            trajectory of chondrichthyans following the age-at-maturity are more likely to be identified by length-at-age data alone.
             """
-        And our hypothesis that:
+        And that our aim is to:
             """
-            Biphasic growth models will provide a superior statistical fit when compared to monophasic growth models
-            as they are able to account for changes in somatic growth rates following the age-at-maturity
+            Evaluate and compare the statistical fit of biphasic growth models against monophasic growth models, under the
+            belief that biphasic growth models are better able to account for decreases in somatic growth rates following the
+            age-at-maturity. Hence, biphasic models may provide more robust parameter estimates of growth to incorporate into
+            other fisheries models, such as stock assessment models.
             """"
         And we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
@@ -26,7 +30,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for male spot-tail sharks (Carcharhinus sorrah)
-        Given our growth curve is a "von Bertalanffy growth model" ("VBGM")
+        Given our growth curve is a "von Bertalanffy growth model (Beverton, 1957)" ("VBGM")
         When our sex is "Male"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
@@ -47,7 +51,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
 
     @fisheries_modelling
     Scenario: Fit a biphasic von Bertalanffy growth model for male spot-tail sharks (Carcharhinus sorrah)
-        Given our growth curve is a "biphasic von Bertalanffy growth model" ("BVBGM")
+        Given our growth curve is a "biphasic von Bertalanffy growth model (Soriano et al., 1992)" ("BVBGM")
         When our sex is "Male"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
@@ -74,7 +78,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female spot-tail sharks (Carcharhinus sorrah)
-        Given our growth curve is a "von Bertalanffy growth model" ("VBGM")
+        Given our growth curve is a "von Bertalanffy growth model (Beverton, 1957)" ("VBGM")
         When our sex is "Female"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
@@ -95,7 +99,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
 
     @fisheries_modelling
     Scenario: Fit a biphasic von Bertalanffy growth model for female spot-tail sharks (Carcharhinus sorrah)
-        Given our growth curve is a "biphasic von Bertalanffy growth model" ("BVBGM")
+        Given our growth curve is a "biphasic von Bertalanffy growth model (Soriano et al., 1992)" ("BVBGM")
         When our sex is "Female"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
