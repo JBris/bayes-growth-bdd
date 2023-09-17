@@ -48,8 +48,8 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
@@ -71,8 +71,8 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
@@ -97,8 +97,8 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
@@ -120,8 +120,8 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling

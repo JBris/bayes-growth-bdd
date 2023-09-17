@@ -239,6 +239,7 @@ def step_impl(context: Context) -> None:
             cores = 1
 
         trace = pm.sample(
+            init = "jitter+adapt_full",
             draws=bayesian_def.n_draws,
             tune=bayesian_def.n_burn,
             chains=bayesian_def.n_chains,

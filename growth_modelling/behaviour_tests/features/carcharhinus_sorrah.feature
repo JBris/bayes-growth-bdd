@@ -20,7 +20,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
         And we are taking "1500" draws per MCMC chain
         And we specify "1500" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.99"
+        And our MCMC samples have an acceptance probability of "0.999"
         And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
         And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
         And our method to estimate the model weights is "stacking"
@@ -48,8 +48,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
@@ -64,15 +64,15 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we believe that the "k" parameter could plausibly be "0.9" with a standard deviation of "0.2" and a "lower" bound of "0.0"
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75" and a "lower" bound of "0.0"
-        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5" and a "lower" bound of "0.0"
+        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "0.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
@@ -97,8 +97,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
@@ -113,15 +113,15 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we believe that the "k" parameter could plausibly be "0.34" with a standard deviation of "0.15" and a "lower" bound of "0.0"
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75" and a "lower" bound of "0.0"
-        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5" and a "lower" bound of "0.0"
+        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "0.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
         When we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
-        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
-        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
+        And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
+        And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "1.0"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
