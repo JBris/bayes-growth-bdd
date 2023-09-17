@@ -4,12 +4,12 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         Given our statement that:
             """
             Energy reallocation from somatic growth to sexual reproduction at the onset of sexual maturity
-            contributes to decreases in somatic growth rates
+            contributes to decreases in somatic growth rates following the age-at-maturity
             """
         And our hypothesis that:
             """
-            Biphasic growth models will provide a superior statistical fit compared to monophasic growth models
-            as they are able to account for changes in somatic growth rates at sexual maturity
+            Biphasic growth models will provide a superior statistical fit when compared to monophasic growth models
+            as they are able to account for changes in somatic growth rates following the age-at-maturity
             """"
         And we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
