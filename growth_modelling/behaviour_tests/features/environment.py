@@ -27,6 +27,19 @@ def before_feature(context: Context, feature: Feature) -> None:
     context.traces = {}
 
 
+def after_feature(context: Context, feature: Feature) -> None:
+    """
+    After feature environmental control.
+
+    Args:
+        context (Context):
+            The current test context.
+        feature (Feature):
+            The current test feature.
+    """
+    context.traces = None
+
+
 def before_scenario(context: Context, scenario: Scenario) -> None:
     """
     Before scenario environmental control.

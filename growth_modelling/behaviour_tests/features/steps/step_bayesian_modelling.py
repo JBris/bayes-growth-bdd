@@ -7,6 +7,7 @@ import arviz as az
 from behave.runner import Context
 from behave import given, when, then
 from behave import register_type
+from matplotlib import pyplot as plt
 from os.path import join as join_path
 import pymc as pm
 
@@ -44,13 +45,15 @@ register_type(CommaList=parse_comma_list)
 # Functions
 ######################################
 
-def get_trace_key(context: Context) -> str:
+def get_trace_key(context: Context, growth_curve: str = "") -> str:
     """
     Get the dictionary key for the trace object from the test context.
 
     Args:
         context (Context): 
             The test context.
+        growth_curve (str, optional): 
+            The growth curve dictionary key. Defaults to "".
 
     Returns:
         str: 
@@ -59,13 +62,16 @@ def get_trace_key(context: Context) -> str:
     bayesian_def = context.behaviour.bayesian
     fisheries_def = context.behaviour.fisheries
 
+    if growth_curve == "":
+        growth_curve = fisheries_def.growth_curve
+
     trace_key = get_trace_dict_key(
-        fisheries_def["class_type"],
-        fisheries_def["order"],
-        fisheries_def["species"],
-        fisheries_def["sex"],
-        bayesian_def["model_type"],
-        fisheries_def["growth_curve"],
+        fisheries_def.class_type,
+        fisheries_def.order,
+        fisheries_def.species,
+        fisheries_def.sex,
+        bayesian_def.model_type,
+        growth_curve,
     )
 
     return trace_key
@@ -192,7 +198,6 @@ def step_impl(context: Context) -> None:
         bayesian_def.model_type,
         fisheries_def.growth_curve,
     )
-    behaviour.to_yaml(out_dir)
 
     x = df[fisheries_def.explanatory_var].values
     y = df[fisheries_def.response_var].values
@@ -250,6 +255,55 @@ def step_impl(context: Context) -> None:
         context.traces[trace_key] = trace
 
 
+@when('our assessment metric is "{metric_longname}" ("{metric:SnakeCaseString}")')
+def step_impl(context: Context, metric_longname: str, metric: str) -> None:
+    context.behaviour.bayesian.metric_longname = metric_longname
+    context.behaviour.bayesian.metric = metric
+
+
+@when('our assessment method is "{method_longname}" ("{method:SnakeCaseString}")')
+def step_impl(context: Context, method_longname: str, method: str) -> None:
+    context.behaviour.bayesian.method_longname = method_longname
+    context.behaviour.bayesian.method = method
+
+@when('our method to estimate the model weights is "{model_weights}"')
+def step_impl(context: Context, model_weights: str) -> None:
+    context.behaviour.bayesian.model_weights = model_weights
+
+@when('we compare the following candidate models "{growth_curve_list:CommaList}"')
+def step_impl(context: Context, growth_curve_list: list[str]) -> None:
+    behaviour = context.behaviour
+    bayesian_def = behaviour.bayesian
+    fisheries_def = behaviour.fisheries
+    candidate_models = {}
+
+    for k in growth_curve_list:
+        trace_key = get_trace_key(context, k.lower())
+        candidate_models[k] = context.traces[trace_key]
+
+    model_scores_df = az.compare(
+        candidate_models, ic = bayesian_def.method, method = bayesian_def.model_weights
+    )
+    model_scores_df["model"] = model_scores_df.index
+
+    out_dir = join_path(
+        "out",
+        fisheries_def.class_type,
+        fisheries_def.order,
+        fisheries_def.species,
+        fisheries_def.sex,
+        bayesian_def.model_type,
+    )
+
+    outfile = join_path(out_dir, "model_scores.csv")
+    model_scores_df.to_csv(outfile, index=False)
+
+    outfile = join_path(out_dir, "model_scores.png")
+    az.plot_compare(
+        model_scores_df, plot_standard_error=True, plot_ic_diff=True, order_by_rank=True, legend=True, title=True
+    )
+    plt.savefig(outfile)
+
 @then(
     'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostics to all be "{comparison:QueryComparison}" "{diag_baseline:f}"'
 )
@@ -263,7 +317,7 @@ def step_impl(
     trace_key = get_trace_key(context)
     trace = context.traces[trace_key]
 
-    hdi_prob = context.behaviour.bayesian["hdi_prob"]
+    hdi_prob = context.behaviour.bayesian.hdi_prob
     trace_df = az.summary(trace, hdi_prob=hdi_prob)
     n_rows = trace_df.shape[0]
 
@@ -282,7 +336,7 @@ def step_impl(
     trace_key = get_trace_key(context)
     trace = context.traces[trace_key]
 
-    hdi_prob = context.behaviour.bayesian["hdi_prob"]
+    hdi_prob = context.behaviour.bayesian.hdi_prob
     trace_df = az.summary(trace, hdi_prob=hdi_prob)
     trace_df["parameter"] = trace_df.index
 

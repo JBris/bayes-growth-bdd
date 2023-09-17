@@ -75,6 +75,10 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for male blacktip sharks (Carcharhinus limbatus)
         When our sex is "Male"
+        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
+        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
+        And our method to estimate the model weights is "stacking"
+        And we compare the following candidate models "VBGM and BVBGM"
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female blacktip sharks (Carcharhinus limbatus)
@@ -123,3 +127,7 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for female blacktip sharks (Carcharhinus limbatus)
         When our sex is "Female"
+        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
+        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
+        And our method to estimate the model weights is "stacking"
+        And we compare the following candidate models "VBGM and BVBGM"

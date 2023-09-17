@@ -4,6 +4,7 @@
 
 # External
 from abc import ABC
+from copy import deepcopy
 from dataclasses import dataclass
 from os.path import join as join_path
 from pathlib import Path
@@ -24,7 +25,8 @@ class BaseDataModel(ABC):
         Returns:
             dict: The dictionary of the data model.
         """
-        return vars(self)
+        clone_obj = deepcopy(self)
+        return vars(clone_obj)
 
     def to_yaml(
         self, out_dir: str, outfile: str = "meta.yaml", default_flow_style: bool = False
@@ -70,7 +72,11 @@ class BayesianModel(BaseDataModel):
         self.hdi_prob: float = 0.95
         self.priors: dict = {}
         self.factors: list[str] = []
-
+        self.metric_longname: str = "Expected log pointwise predictive density"
+        self.metric: str = "elpd"
+        self.method_longname: str = "Pareto smoothed importance sampling leave-one-out cross-validation"
+        self.method: str = "loo"
+        self.model_weights: str = "stacking"
 
 @dataclass
 class FisheriesModel(BaseDataModel):
@@ -121,7 +127,8 @@ class BehaviourTestModel(BaseDataModel):
         Returns:
             dict: The dictionary of the data model.
         """
-        model_dict = vars(self)
+        clone_obj = deepcopy(self)
+        model_dict = vars(clone_obj)
         for k in model_dict:
             if not hasattr(model_dict[k], "__dict__"):
                 continue
