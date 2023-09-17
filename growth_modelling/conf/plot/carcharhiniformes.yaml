@@ -1,5 +1,5 @@
 x: age
-y: fl
+y: stl
 hue: sex
 col: year
 as_cat: [year]

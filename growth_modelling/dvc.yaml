@@ -27,6 +27,6 @@ stages:
     - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv
     - src/plot_curves.py
     outs:
-    - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/fl_age.png
-    - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/fl_age.png
-    - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/fl_age.png
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/stl_age.png
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/stl_age.png
+    - data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/stl_age.png

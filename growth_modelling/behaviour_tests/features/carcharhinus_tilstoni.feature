@@ -19,10 +19,10 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         Given our sex is "Male"
         And we have samples taken from "New South Wales A, and Queensland A"
         And we have samples taken between "2007" and "2012"
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "intercept" parameter could plausibly be "55.0" with a standard deviation of "10.0"
-        And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "intercept" parameter could plausibly be "68.0" with a standard deviation of "10.0"
+        And we believe that the "slope" parameter could plausibly be "9.0" with a standard deviation of "5.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -32,19 +32,19 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
         And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.035"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
-        And we expect the posterior mean of the "intercept" parameter estimate to be "55.0" with "0.05" error
-        And we expect the posterior mean of the "slope" parameter estimate to be "6.0" with "0.25" error
-        And we expect the posterior mean of the "sigma" parameter estimate to be "6.0" with "0.25" error
+        And we expect the posterior mean of the "intercept" parameter estimate to be "68.0" with "0.05" error
+        And we expect the posterior mean of the "slope" parameter estimate to be "9.0" with "0.25" error
+        And we expect the posterior mean of the "sigma" parameter estimate to be "7.0" with "0.25" error
 
     @fisheries_modelling
     Scenario: Fit a linear model for female Australian blacktip sharks (Carcharhinus tilstoni)
         Given our sex is "Female"
         And we have samples taken from "New South Wales A, and Queensland A"
         And we have samples taken between "2007" and "2012"
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "intercept" parameter could plausibly be "55.0" with a standard deviation of "10.0"
-        And we believe that the "slope" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "intercept" parameter could plausibly be "68.0" with a standard deviation of "10.0"
+        And we believe that the "slope" parameter could plausibly be "9.0" with a standard deviation of "5.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -54,6 +54,6 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.05"
         And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.035"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
-        And we expect the posterior mean of the "intercept" parameter estimate to be "54.0" with "0.05" error
-        And we expect the posterior mean of the "slope" parameter estimate to be "6.0" with "0.25" error
-        And we expect the posterior mean of the "sigma" parameter estimate to be "6.0" with "0.25" error
+        And we expect the posterior mean of the "intercept" parameter estimate to be "68.0" with "0.05" error
+        And we expect the posterior mean of the "slope" parameter estimate to be "9.0" with "0.25" error
+        And we expect the posterior mean of the "sigma" parameter estimate to be "7.0" with "0.25" error

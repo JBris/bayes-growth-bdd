@@ -176,8 +176,9 @@ def bvbgm(
         np.ndarray:
             The size at time t.
     """
-    A_t = 1 - (h / (1 + (t - t_h) ** 2))
-    L_t = l_inf * (1.0 - np.exp(-k * A_t * (t - t_0)))
+      
+    A_t = 1 - (h / ((t - t_h)** 2 + 1))
+    L_t = l_inf * A_t * (1.0 - np.exp(-k * (t - t_0)))
     return L_t
 
 

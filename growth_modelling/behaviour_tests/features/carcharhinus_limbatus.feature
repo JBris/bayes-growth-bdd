@@ -21,6 +21,9 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And we are taking "1500" draws per MCMC chain
         And we specify "1500" samples for our burn-in period
         And our MCMC samples have an acceptance probability of "0.99"
+        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
+        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
+        And our method to estimate the model weights is "stacking"
         And our class is "Chondrichthyes"
         And our order is "Carcharhiniformes"
         And our family is "Carcharhinidae"
@@ -34,11 +37,11 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And our sex is "Male"
         And we have samples taken from "New South Wales A, New South Wales B, Queensland A, and Queensland B"
         And we have samples taken between "2004" and "2013"
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "200.0" with a standard deviation of "20.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "241.9" with a standard deviation of "20.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.1565" with a standard deviation of "0.1" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -55,12 +58,12 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And our sex is "Male"
         And we have samples taken from "New South Wales A, New South Wales B, Queensland A, and Queensland B"
         And we have samples taken between "2004" and "2013"
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "200.0" with a standard deviation of "20.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
-        And we believe that the "t_h" parameter could plausibly be "4.5" with a standard deviation of "1.0" and a "lower" bound of "0.0"
+        And we believe that the "L_inf" parameter could plausibly be "241.9" with a standard deviation of "20.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.1565" with a standard deviation of "0.1" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.0"
+        And we believe that the "t_h" parameter could plausibly be "8.33" with a standard deviation of "1.0" and a "lower" bound of "0.0"
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "2.0" and a "lower" bound of "0.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
@@ -75,9 +78,6 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for male blacktip sharks (Carcharhinus limbatus)
         Given our sex is "Male"
-        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
-        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
-        And our method to estimate the model weights is "stacking"
         When we compare the following candidate models "VBGM and BVBGM"
 
     @fisheries_modelling
@@ -86,11 +86,11 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And our sex is "Female"
         And we have samples taken from "New South Wales A, New South Wales B, Queensland A, and Queensland B"
         And we have samples taken between "2004" and "2013"
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "220.0" with a standard deviation of "20.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "263.6" with a standard deviation of "20.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.142" with a standard deviation of "0.1" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -107,12 +107,12 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
         And our sex is "Female"
         And we have samples taken from "New South Wales A, New South Wales B, Queensland A, and Queensland B"
         And we have samples taken between "2004" and "2013"
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "220.0" with a standard deviation of "20.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
-        And we believe that the "t_h" parameter could plausibly be "6.5" with a standard deviation of "1.0" and a "lower" bound of "0.0"
+        And we believe that the "L_inf" parameter could plausibly be "263.6" with a standard deviation of "20.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.142" with a standard deviation of "0.1" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.0"
+        And we believe that the "t_h" parameter could plausibly be "8.33" with a standard deviation of "1.0" and a "lower" bound of "0.0"
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "2.0" and a "lower" bound of "0.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
@@ -127,7 +127,4 @@ Feature: Nonlinear growth model for blacktip sharks (Carcharhinus limbatus)
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for female blacktip sharks (Carcharhinus limbatus)
         Given our sex is "Female"
-        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
-        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
-        And our method to estimate the model weights is "stacking"
         When we compare the following candidate models "VBGM and BVBGM"

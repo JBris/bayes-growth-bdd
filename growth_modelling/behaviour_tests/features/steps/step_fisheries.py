@@ -21,7 +21,9 @@ location_oracle = {
     "QueenslandB": "qld2",
 }
 
-variable_oracle = {"fork_length": "fl", "age": "age"}
+variable_oracle = {
+    "total_length" : "stl", "fork_length": "fl", "age": "age"
+}
 
 ######################################
 # Types

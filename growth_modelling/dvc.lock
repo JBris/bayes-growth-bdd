@@ -13,16 +13,16 @@ stages:
       size: 207
     - path: conf/preprocess/carcharhiniformes.yaml
       hash: md5
-      md5: 4fc703dda7e04dff63d9f65302a72bfb
-      size: 94
+      md5: 1a20bc7c74531008a02d85f2729d2d65
+      size: 99
     - path: data/limbatus.csv
       hash: md5
       md5: 417fbada364e5563bc5060b81576bff5
       size: 105963
     - path: data/spot_tail_shark.csv
       hash: md5
-      md5: 22e293b5a54bf3ede1cc7bb40bcfb3c1
-      size: 71975
+      md5: 0964169a62eb42696f51596e32455d7b
+      size: 72119
     - path: src/preprocess.py
       hash: md5
       md5: 2eabbde2dba998e311b57f4b82223e43
@@ -35,8 +35,8 @@ stages:
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/data.csv
       hash: md5
-      md5: 14969130767cae9d005f9c7c1e304c7d
-      size: 12315
+      md5: 93216494caaa6779fcc4ec37d3c93c4c
+      size: 15002
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/README.md
       hash: md5
@@ -45,8 +45,8 @@ stages:
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
       hash: md5
-      md5: 29c7ab7b01face360c91062e8ae66c26
-      size: 15213
+      md5: dfe188782e60775949e8cbc052c7b3ae
+      size: 18905
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/README.md
       hash: md5
@@ -55,8 +55,8 @@ stages:
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv
       hash: md5
-      md5: 7240793855a70114d7256cc038c89776
-      size: 15419
+      md5: 55674359d028eb4e175e2a2fd5e94a72
+      size: 18462
       isexec: true
   plot_curves:
     cmd: python src/plot_curves.py
@@ -75,37 +75,37 @@ stages:
       size: 37
     - path: conf/plot/carcharhiniformes.yaml
       hash: md5
-      md5: cf5fb695f9bc6aa516d90b56bddd931a
-      size: 52
+      md5: 09faed84003632cc38afbc632b097966
+      size: 53
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/data.csv
       hash: md5
-      md5: 14969130767cae9d005f9c7c1e304c7d
-      size: 12315
+      md5: 93216494caaa6779fcc4ec37d3c93c4c
+      size: 15002
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/data.csv
       hash: md5
-      md5: 29c7ab7b01face360c91062e8ae66c26
-      size: 15213
+      md5: dfe188782e60775949e8cbc052c7b3ae
+      size: 18905
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/data.csv
       hash: md5
-      md5: 7240793855a70114d7256cc038c89776
-      size: 15419
+      md5: 55674359d028eb4e175e2a2fd5e94a72
+      size: 18462
     - path: src/plot_curves.py
       hash: md5
       md5: 93c6afb51599275bee7edefbbb7e658c
       size: 4192
     outs:
-    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/fl_age.png
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/stl_age.png
       hash: md5
-      md5: b83490ab569aec658c9c8d9a9e94357b
-      size: 66941
+      md5: 0f6725193e7cb118f4a5e1915962398b
+      size: 68113
       isexec: true
-    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/fl_age.png
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/stl_age.png
       hash: md5
-      md5: 6137e5f003c485e0a0f46f1217c7c7e4
-      size: 48887
+      md5: afa67da21ceb1176bcc62263fa9eb82f
+      size: 46125
       isexec: true
-    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/fl_age.png
+    - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/stl_age.png
       hash: md5
-      md5: b77c411283d2d7fb76a4bf19c9330752
-      size: 42340
+      md5: abdc4ea597bd5091e65b05c73e5b775b
+      size: 47428
       isexec: true

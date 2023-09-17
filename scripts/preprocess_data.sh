@@ -30,8 +30,8 @@ dvc stage add --force -n plot_curves \
     -d src/plot_curves.py -d ${OUT_DIR}/carcharhinus_limbatus/data.csv -d ${OUT_DIR}/carcharhinus_tilstoni/data.csv \
     -d ${OUT_DIR}/carcharhinus_sorrah/data.csv -d conf/config.yaml -d conf/experiment_tracking/local.yaml \
     -d conf/common/carcharhiniformes.yaml -d conf/plot/carcharhiniformes.yaml \
-    -o ${OUT_DIR}/carcharhinus_limbatus/fl_age.png  -o ${OUT_DIR}/carcharhinus_tilstoni/fl_age.png \
-    -o ${OUT_DIR}/carcharhinus_sorrah/fl_age.png \
+    -o ${OUT_DIR}/carcharhinus_limbatus/stl_age.png  -o ${OUT_DIR}/carcharhinus_tilstoni/stl_age.png \
+    -o ${OUT_DIR}/carcharhinus_sorrah/stl_age.png \
     python src/plot_curves.py
 
 dvc repro

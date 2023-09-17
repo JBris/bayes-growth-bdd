@@ -215,6 +215,7 @@ def step_impl(context: Context) -> None:
         bayesian_def.model_type,
         fisheries_def.growth_curve,
     )
+    behaviour.to_yaml(out_dir)
 
     x = df[fisheries_def.explanatory_var].values
     y = df[fisheries_def.response_var].values
@@ -271,7 +272,6 @@ def step_impl(context: Context) -> None:
         trace_key = get_trace_key(context)
         context.traces[trace_key] = trace
 
-        behaviour.to_yaml(out_dir)
 
 @when('we compare the following candidate models "{growth_curve_list:CommaList}"')
 def step_impl(context: Context, growth_curve_list: list[str]) -> None:
@@ -308,6 +308,7 @@ def step_impl(context: Context, growth_curve_list: list[str]) -> None:
     plt.savefig(outfile)
 
     context.model_scores = model_scores_df
+
 
 @then(
     'we expect our "{diag_longname}" ("{diagnostic:SnakeCaseString}") diagnostics to all be "{comparison:QueryComparison}" "{diag_baseline:f}"'

@@ -21,6 +21,9 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we are taking "1500" draws per MCMC chain
         And we specify "1500" samples for our burn-in period
         And our MCMC samples have an acceptance probability of "0.99"
+        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
+        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
+        And our method to estimate the model weights is "stacking"
         And our class is "Chondrichthyes"
         And our order is "Carcharhiniformes"
         And our family is "Carcharhinidae"
@@ -34,11 +37,11 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And our sex is "Male"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "90.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "102.9" with a standard deviation of "10.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.9" with a standard deviation of "0.2" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -55,11 +58,11 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And our sex is "Male"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "90.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "102.9" with a standard deviation of "10.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.9" with a standard deviation of "0.2" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75" and a "lower" bound of "0.0"
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
@@ -75,9 +78,6 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for male spot-tail sharks (Carcharhinus sorrah)
         Given our sex is "Male"
-        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
-        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
-        And our method to estimate the model weights is "stacking"
         When we compare the following candidate models "VBGM and BVBGM"
 
     @fisheries_modelling
@@ -86,11 +86,11 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And our sex is "Female"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "110.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "125.25" with a standard deviation of "15.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.34" with a standard deviation of "0.15" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -107,11 +107,11 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And our sex is "Female"
         And we have samples taken between "2007" and "2012"
         And recorded location data are unavailable
-        And our response variable is "Fork Length" ("cm")
+        And our response variable is "Total Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "110.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
-        And we believe that the "k" parameter could plausibly be "6.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
-        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "125.25" with a standard deviation of "15.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "0.34" with a standard deviation of "0.15" and a "lower" bound of "0.0"
+        And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75" and a "lower" bound of "0.0"
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
@@ -127,8 +127,5 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     @fisheries_modelling
     Scenario: Compare monophasic and biphasic growth models for female spot-tail sharks (Carcharhinus sorrah)
         Given our sex is "Female"
-        And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
-        And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
-        And our method to estimate the model weights is "stacking"
         When we compare the following candidate models "VBGM and BVBGM"
 
