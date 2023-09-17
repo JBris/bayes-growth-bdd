@@ -60,34 +60,70 @@
 <span class="c1"># Main</span>
 <span class="c1">######################################</span>
 
+
+<div class="viewcode-block" id="plot_curves">
+<a class="viewcode-back" href="../../pipelines/plot_curves.html#src.plot_curves.plot_curves">[docs]</a>
 <span class="k">def</span> <span class="nf">plot_curves</span><span class="p">(</span>
-    <span class="n">species_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">infile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
-    <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">as_cat</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">tracking_uri</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">species_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">index_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">infile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hue</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">as_cat</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">tracking_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the growth curves.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        species_code (str):</span>
+<span class="sd">            The shark species code.</span>
+<span class="sd">        index_df (pd.DataFrame):</span>
+<span class="sd">            The index dataframe containing metadata.</span>
+<span class="sd">        data_dir (str):</span>
+<span class="sd">            The data directory.</span>
+<span class="sd">        infile (str):</span>
+<span class="sd">            The input datafile.</span>
+<span class="sd">        x (str):</span>
+<span class="sd">            The x column.</span>
+<span class="sd">        y (str):</span>
+<span class="sd">            The y column.</span>
+<span class="sd">        hue (str):</span>
+<span class="sd">            The grouping column.</span>
+<span class="sd">        col (str):</span>
+<span class="sd">            The categorical column.</span>
+<span class="sd">        as_cat (list[str], optional):</span>
+<span class="sd">            Cast the column as a category. Defaults to [].</span>
+<span class="sd">        tracking_uri (str, optional):</span>
+<span class="sd">            The experiment tracking URI. Defaults to None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">species_df</span> <span class="o">=</span> <span class="n">index_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;species_code == @species_code&quot;</span><span class="p">)</span>
     <span class="n">extract_val</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="n">species_df</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
     <span class="n">species</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span>
-    <span class="n">class_</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="n">class_type</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)</span>
 
-    <span class="n">in_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
+    <span class="n">in_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
     <span class="n">datafile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="n">infile</span><span class="p">)</span>
     <span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datafile</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">cat_col</span> <span class="ow">in</span> <span class="n">as_cat</span><span class="p">:</span>
         <span class="n">data_df</span><span class="p">[</span><span class="n">cat_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="n">cat_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-    
+
     <span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span>
         <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
         <span class="n">hue</span><span class="o">=</span><span class="n">hue</span><span class="p">,</span>
         <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
-        <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+        <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="n">data_df</span><span class="p">,</span>
-        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;point&#39;</span><span class="p">,</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-        <span class="n">aspect</span><span class="o">=</span><span class="mf">.8</span>
+        <span class="n">aspect</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
@@ -97,7 +133,7 @@
 
     <span class="kn">import</span> <span class="nn">mlflow</span>
 
-    <span class="n">mlflow</span><span class="o">.</span><span class="n">set_tracking_uri</span><span class="p">(</span><span class="n">tracking_uri</span><span class="p">)</span>  
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">set_tracking_uri</span><span class="p">(</span><span class="n">tracking_uri</span><span class="p">)</span>
     <span class="n">experiment_name</span> <span class="o">=</span> <span class="s2">&quot;plot_growth_curves&quot;</span>
     <span class="n">existing_exp</span> <span class="o">=</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">get_experiment_by_name</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_exp</span><span class="p">:</span>
@@ -106,19 +142,23 @@
     <span class="n">mlflow</span><span class="o">.</span><span class="n">set_tag</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
 
     <span class="n">mlflow</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
-    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="n">class_type</span><span class="p">)</span>
     <span class="n">mlflow</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">log_series</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">log_series</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
         <span class="n">series</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
         <span class="n">series_interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">*</span> <span class="n">interval</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">series_interval</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+
     <span class="n">data_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">hue</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">log_series</span><span class="p">)</span>
 
-    <span class="n">mlflow</span><span class="o">.</span><span class="n">end_run</span><span class="p">()</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">end_run</span><span class="p">()</span></div>
+
+
 
 <div class="viewcode-block" id="main">
 <a class="viewcode-back" href="../../pipelines/plot_curves.html#src.plot_curves.main">[docs]</a>
@@ -128,7 +168,7 @@
 <span class="sd">    The main entry point for the plotting pipeline.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        config (DictConfig): </span>
+<span class="sd">        config (DictConfig):</span>
 <span class="sd">            The pipeline configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Constants</span>
@@ -152,7 +192,19 @@
     <span class="n">index_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">index_file</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">species_code</span> <span class="ow">in</span> <span class="n">SPECIES_LIST</span><span class="p">:</span>
-        <span class="n">plot_curves</span><span class="p">(</span><span class="n">species_code</span><span class="p">,</span> <span class="n">index_df</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">OUTFILE</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">HUE</span><span class="p">,</span> <span class="n">COL</span><span class="p">,</span> <span class="n">AS_CAT</span><span class="p">,</span> <span class="n">TRACKING_URI</span><span class="p">)</span></div>
+        <span class="n">plot_curves</span><span class="p">(</span>
+            <span class="n">species_code</span><span class="p">,</span>
+            <span class="n">index_df</span><span class="p">,</span>
+            <span class="n">DATA_DIR</span><span class="p">,</span>
+            <span class="n">OUTFILE</span><span class="p">,</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">Y</span><span class="p">,</span>
+            <span class="n">HUE</span><span class="p">,</span>
+            <span class="n">COL</span><span class="p">,</span>
+            <span class="n">AS_CAT</span><span class="p">,</span>
+            <span class="n">TRACKING_URI</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

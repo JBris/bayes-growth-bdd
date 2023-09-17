@@ -1,7 +1,7 @@
-Plot Curves
+Utils
 =================================================
 
 *Date published:* |today|
 
-.. automodule:: src.plot_curves
+.. automodule:: behaviour_tests.features.steps.utils
    :members:

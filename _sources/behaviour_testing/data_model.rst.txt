@@ -1,7 +1,7 @@
-Plot Curves
+Data Model
 =================================================
 
 *Date published:* |today|
 
-.. automodule:: src.plot_curves
+.. automodule:: behaviour_tests.features.steps.data_model
    :members:

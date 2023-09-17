@@ -1,0 +1,207 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Model &#8212; Growth Modelling Behavior-Driven Development  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utils" href="utils.html" />
+    <link rel="prev" title="Behaviour Testing" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Behaviour Testing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Growth Modelling Behavior-Driven Development  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Behaviour Testing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Model</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="data-model">
+<h1>Data Model<a class="headerlink" href="#data-model" title="Link to this heading">¶</a></h1>
+<p><em>Date published:</em> 17/09/23</p>
+<dl class="py class" id="module-behaviour_tests.features.steps.data_model">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.BaseDataModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">behaviour_tests.features.steps.data_model.</span></span><span class="sig-name descname"><span class="pre">BaseDataModel</span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#BaseDataModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.BaseDataModel" title="Link to this definition">¶</a></dt>
+<dd><p>Abstract class for data models.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.BaseDataModel.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#BaseDataModel.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.BaseDataModel.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Convert data model to dictionary.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: The dictionary of the data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.BaseDataModel.to_yaml">
+<span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'meta.yaml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_flow_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#BaseDataModel.to_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.BaseDataModel.to_yaml" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the data model to YAML, and write to file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>out_dir (str):</dt><dd><p>The output directory.</p>
+</dd>
+<dt>outfile (str):</dt><dd><p>The YAML output file.</p>
+</dd>
+<dt>default_flow_style (bool, optional):</dt><dd><p>The YAML flow style. Defaults to False.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>str:</dt><dd><p>The YAML file path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.BayesianModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">behaviour_tests.features.steps.data_model.</span></span><span class="sig-name descname"><span class="pre">BayesianModel</span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#BayesianModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.BayesianModel" title="Link to this definition">¶</a></dt>
+<dd><p>Class for Bayesian Model parameters.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.BehaviourTestModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">behaviour_tests.features.steps.data_model.</span></span><span class="sig-name descname"><span class="pre">BehaviourTestModel</span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#BehaviourTestModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.BehaviourTestModel" title="Link to this definition">¶</a></dt>
+<dd><p>Class for behaviour testing parameters.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.BehaviourTestModel.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#BehaviourTestModel.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.BehaviourTestModel.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Convert data model to dictionary.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: The dictionary of the data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.data_model.FisheriesModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">behaviour_tests.features.steps.data_model.</span></span><span class="sig-name descname"><span class="pre">FisheriesModel</span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/data_model.html#FisheriesModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.data_model.FisheriesModel" title="Link to this definition">¶</a></dt>
+<dd><p>Class for Fisheries Model parameters.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Data Model</a><ul>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.BaseDataModel"><code class="docutils literal notranslate"><span class="pre">BaseDataModel</span></code></a><ul>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.BaseDataModel.to_dict"><code class="docutils literal notranslate"><span class="pre">BaseDataModel.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.BaseDataModel.to_yaml"><code class="docutils literal notranslate"><span class="pre">BaseDataModel.to_yaml()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.BayesianModel"><code class="docutils literal notranslate"><span class="pre">BayesianModel</span></code></a></li>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.BehaviourTestModel"><code class="docutils literal notranslate"><span class="pre">BehaviourTestModel</span></code></a><ul>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.BehaviourTestModel.to_dict"><code class="docutils literal notranslate"><span class="pre">BehaviourTestModel.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.data_model.FisheriesModel"><code class="docutils literal notranslate"><span class="pre">FisheriesModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Behaviour Testing</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="utils.html"
+                          title="next chapter">Utils</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/behaviour_testing/data_model.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Behaviour Testing"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Growth Modelling Behavior-Driven Development  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Behaviour Testing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Model</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, James Bristow.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    </div>
+  </body>
+</html>

@@ -17,6 +17,7 @@
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Behaviour Testing" href="../behaviour_testing/index.html" />
     <link rel="prev" title="Preprocess" href="preprocess.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -33,6 +34,9 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="../behaviour_testing/index.html" title="Behaviour Testing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="preprocess.html" title="Preprocess"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Growth Modelling Behavior-Driven Development  documentation</a> &#187;</li>
@@ -46,15 +50,47 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="module-src.plot_curves">
-<span id="plot-curves"></span><h1>Plot Curves<a class="headerlink" href="#module-src.plot_curves" title="Link to this heading">¶</a></h1>
-<dl class="py function">
+  <section id="plot-curves">
+<h1>Plot Curves<a class="headerlink" href="#plot-curves" title="Link to this heading">¶</a></h1>
+<p><em>Date published:</em> 17/09/23</p>
+<dl class="py function" id="module-src.plot_curves">
 <dt class="sig sig-object py" id="src.plot_curves.main">
 <span class="sig-prename descclassname"><span class="pre">src.plot_curves.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DictConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/src/plot_curves.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.plot_curves.main" title="Link to this definition">¶</a></dt>
 <dd><p>The main entry point for the plotting pipeline.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>config (DictConfig): </dt><dd><p>The pipeline configuration.</p>
+<dt>config (DictConfig):</dt><dd><p>The pipeline configuration.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.plot_curves.plot_curves">
+<span class="sig-prename descclassname"><span class="pre">src.plot_curves.</span></span><span class="sig-name descname"><span class="pre">plot_curves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_cat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracking_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/src/plot_curves.html#plot_curves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.plot_curves.plot_curves" title="Link to this definition">¶</a></dt>
+<dd><p>Plot the growth curves.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>species_code (str):</dt><dd><p>The shark species code.</p>
+</dd>
+<dt>index_df (pd.DataFrame):</dt><dd><p>The index dataframe containing metadata.</p>
+</dd>
+<dt>data_dir (str):</dt><dd><p>The data directory.</p>
+</dd>
+<dt>infile (str):</dt><dd><p>The input datafile.</p>
+</dd>
+<dt>x (str):</dt><dd><p>The x column.</p>
+</dd>
+<dt>y (str):</dt><dd><p>The y column.</p>
+</dd>
+<dt>hue (str):</dt><dd><p>The grouping column.</p>
+</dd>
+<dt>col (str):</dt><dd><p>The categorical column.</p>
+</dd>
+<dt>as_cat (list[str], optional):</dt><dd><p>Cast the column as a category. Defaults to [].</p>
+</dd>
+<dt>tracking_uri (str, optional):</dt><dd><p>The experiment tracking URI. Defaults to None.</p>
 </dd>
 </dl>
 </dd>
@@ -75,6 +111,7 @@
     <ul>
 <li><a class="reference internal" href="#">Plot Curves</a><ul>
 <li><a class="reference internal" href="#src.plot_curves.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#src.plot_curves.plot_curves"><code class="docutils literal notranslate"><span class="pre">plot_curves()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -84,6 +121,11 @@
     <h4>Previous topic</h4>
     <p class="topless"><a href="preprocess.html"
                           title="previous chapter">Preprocess</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../behaviour_testing/index.html"
+                          title="next chapter">Behaviour Testing</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -115,6 +157,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="../behaviour_testing/index.html" title="Behaviour Testing"
+             >next</a> |</li>
         <li class="right" >
           <a href="preprocess.html" title="Preprocess"
              >previous</a> |</li>

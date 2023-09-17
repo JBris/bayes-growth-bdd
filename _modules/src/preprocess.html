@@ -59,40 +59,46 @@
 <span class="c1"># Main</span>
 <span class="c1">######################################</span>
 
+
 <div class="viewcode-block" id="write_species_csv">
 <a class="viewcode-back" href="../../pipelines/preprocess.html#src.preprocess.write_species_csv">[docs]</a>
 <span class="k">def</span> <span class="nf">write_species_csv</span><span class="p">(</span>
-    <span class="n">species_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">lowercase_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">drop_na</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">species_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">index_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">cols</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">lowercase_list</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">drop_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a species dataframe and writes it to a CSV file.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        species_code (str): </span>
+<span class="sd">        species_code (str):</span>
 <span class="sd">            The shark species code.</span>
-<span class="sd">        index_df (pd.DataFrame): </span>
+<span class="sd">        index_df (pd.DataFrame):</span>
 <span class="sd">            The index dataframe containing metadata.</span>
-<span class="sd">        data_dir (str): </span>
+<span class="sd">        data_dir (str):</span>
 <span class="sd">            The data directory.</span>
-<span class="sd">        cols (str): </span>
+<span class="sd">        cols (str):</span>
 <span class="sd">            The dataframe column list.</span>
-<span class="sd">        outfile (str): </span>
+<span class="sd">        outfile (str):</span>
 <span class="sd">            The output file name.</span>
 <span class="sd">        lowercase_list (list, optional):</span>
 <span class="sd">            Columns to convert all values to lowercase.</span>
-<span class="sd">        drop_na (bool, optional): </span>
+<span class="sd">        drop_na (bool, optional):</span>
 <span class="sd">            Drop missing values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">species_df</span> <span class="o">=</span> <span class="n">index_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;species_code == @species_code&quot;</span><span class="p">)</span>
     <span class="n">extract_val</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="n">species_df</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
     <span class="n">species</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span>
-    <span class="n">class_</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="n">class_type</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">extract_val</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)</span>
 
     <span class="c1"># Make dirs</span>
-    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
     <span class="n">Path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Load data</span>
@@ -106,7 +112,7 @@
     <span class="n">data_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="n">data_df</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">drop_na</span><span class="p">:</span>
-        <span class="n">data_df</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">data_df</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">lower_col</span> <span class="ow">in</span> <span class="n">lowercase_list</span><span class="p">:</span>
         <span class="n">data_df</span><span class="p">[</span><span class="n">lower_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="n">lower_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
@@ -129,7 +135,7 @@
 <span class="sd">    The main entry point for the preprocess pipeline.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        config (DictConfig): </span>
+<span class="sd">        config (DictConfig):</span>
 <span class="sd">            The pipeline configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Constants</span>
@@ -150,7 +156,9 @@
     <span class="n">index_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">index_file</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">species_code</span> <span class="ow">in</span> <span class="n">SPECIES_LIST</span><span class="p">:</span>
-        <span class="n">write_species_csv</span><span class="p">(</span><span class="n">species_code</span><span class="p">,</span> <span class="n">index_df</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">COLS</span><span class="p">,</span> <span class="n">OUTFILE</span><span class="p">,</span> <span class="n">LOWERCASE</span><span class="p">,</span> <span class="n">DROP_NA</span><span class="p">)</span></div>
+        <span class="n">write_species_csv</span><span class="p">(</span>
+            <span class="n">species_code</span><span class="p">,</span> <span class="n">index_df</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">COLS</span><span class="p">,</span> <span class="n">OUTFILE</span><span class="p">,</span> <span class="n">LOWERCASE</span><span class="p">,</span> <span class="n">DROP_NA</span>
+        <span class="p">)</span></div>
 
 
 

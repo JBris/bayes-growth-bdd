@@ -4,13 +4,14 @@
    contain the root `toctree` directive.
 
 Bayesian Growth Modelling Behavior-Driven Development
-============================================
+=====================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    pipelines/index.rst
+   behaviour_testing/index.rst
 
 Indices and tables
 ==================

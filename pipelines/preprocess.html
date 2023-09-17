@@ -50,15 +50,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="module-src.preprocess">
-<span id="preprocess"></span><h1>Preprocess<a class="headerlink" href="#module-src.preprocess" title="Link to this heading">¶</a></h1>
-<dl class="py function">
+  <section id="preprocess">
+<h1>Preprocess<a class="headerlink" href="#preprocess" title="Link to this heading">¶</a></h1>
+<p><em>Date published:</em> 17/09/23</p>
+<dl class="py function" id="module-src.preprocess">
 <dt class="sig sig-object py" id="src.preprocess.main">
 <span class="sig-prename descclassname"><span class="pre">src.preprocess.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DictConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/src/preprocess.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.preprocess.main" title="Link to this definition">¶</a></dt>
 <dd><p>The main entry point for the preprocess pipeline.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>config (DictConfig): </dt><dd><p>The pipeline configuration.</p>
+<dt>config (DictConfig):</dt><dd><p>The pipeline configuration.</p>
 </dd>
 </dl>
 </dd>
@@ -71,19 +72,19 @@
 <dd><p>Creates a species dataframe and writes it to a CSV file.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>species_code (str): </dt><dd><p>The shark species code.</p>
+<dt>species_code (str):</dt><dd><p>The shark species code.</p>
 </dd>
-<dt>index_df (pd.DataFrame): </dt><dd><p>The index dataframe containing metadata.</p>
+<dt>index_df (pd.DataFrame):</dt><dd><p>The index dataframe containing metadata.</p>
 </dd>
-<dt>data_dir (str): </dt><dd><p>The data directory.</p>
+<dt>data_dir (str):</dt><dd><p>The data directory.</p>
 </dd>
-<dt>cols (str): </dt><dd><p>The dataframe column list.</p>
+<dt>cols (str):</dt><dd><p>The dataframe column list.</p>
 </dd>
-<dt>outfile (str): </dt><dd><p>The output file name.</p>
+<dt>outfile (str):</dt><dd><p>The output file name.</p>
 </dd>
 <dt>lowercase_list (list, optional):</dt><dd><p>Columns to convert all values to lowercase.</p>
 </dd>
-<dt>drop_na (bool, optional): </dt><dd><p>Drop missing values</p>
+<dt>drop_na (bool, optional):</dt><dd><p>Drop missing values</p>
 </dd>
 </dl>
 </dd>

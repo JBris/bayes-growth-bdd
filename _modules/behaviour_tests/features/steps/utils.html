@@ -1,0 +1,590 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>behaviour_tests.features.steps.utils &#8212; Growth Modelling Behavior-Driven Development  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Growth Modelling Behavior-Driven Development  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">behaviour_tests.features.steps.utils</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for behaviour_tests.features.steps.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1">######################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">######################################</span>
+
+<span class="c1"># External</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">join_path</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pymc</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">from</span> <span class="nn">parse_type</span> <span class="kn">import</span> <span class="n">TypeBuilder</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="c1">######################################</span>
+<span class="c1"># Functions</span>
+<span class="c1">######################################</span>
+
+
+<div class="viewcode-block" id="get_dir_path">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.get_dir_path">[docs]</a>
+<span class="k">def</span> <span class="nf">get_dir_path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">class_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">species</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the combined directory path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        base_dir (str):</span>
+<span class="sd">            The base directory.</span>
+<span class="sd">        class_name (str):</span>
+<span class="sd">            The taxonomic class.</span>
+<span class="sd">        order (str):</span>
+<span class="sd">            The taxonomic order.</span>
+<span class="sd">        species (str):</span>
+<span class="sd">             The taxonomic species.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The combined directory path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_dir</span></div>
+
+
+
+<div class="viewcode-block" id="get_df">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.get_df">[docs]</a>
+<span class="k">def</span> <span class="nf">get_df</span><span class="p">(</span>
+    <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">data_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">year_interval</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">sex</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">locations</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">response_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">explanatory_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the input dataframe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data_dir (str):</span>
+<span class="sd">            The input data directory.</span>
+<span class="sd">        data_file (str):</span>
+<span class="sd">            The input data file.</span>
+<span class="sd">        year_interval (list[str]):</span>
+<span class="sd">            The lower and upper bound for years.</span>
+<span class="sd">        sex (str):</span>
+<span class="sd">            The sex of the sample.</span>
+<span class="sd">        locations (str):</span>
+<span class="sd">            The locations of the sample.</span>
+<span class="sd">        response_var (str):</span>
+<span class="sd">            The model response variable.</span>
+<span class="sd">        explanatory_var (str):</span>
+<span class="sd">            The model explanatory variable.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame:</span>
+<span class="sd">            The loaded input dataframe.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_file</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;sex == @sex&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">response_var</span><span class="p">,</span> <span class="n">explanatory_var</span><span class="p">])</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;source in @locations&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">year_interval</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">lower_year</span><span class="p">,</span> <span class="n">upper_year</span> <span class="o">=</span> <span class="n">year_interval</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;year &gt;= @lower_year &amp; year &lt;= @upper_year&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="fit_model">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.fit_model">[docs]</a>
+<span class="k">def</span> <span class="nf">fit_model</span><span class="p">(</span>
+    <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span>
+    <span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">resp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a Bayesian model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_type (str):</span>
+<span class="sd">            The model type.</span>
+<span class="sd">        model (pm.Model):</span>
+<span class="sd">            The PyMC model.</span>
+<span class="sd">        priors (dict):</span>
+<span class="sd">            The model priors.</span>
+<span class="sd">        x (np.ndarray):</span>
+<span class="sd">            The explanatory variable data.</span>
+<span class="sd">        y (np.ndarray):</span>
+<span class="sd">            The response variable data.</span>
+<span class="sd">        resp (str):</span>
+<span class="sd">            The model response.</span>
+<span class="sd">        likelihood (str):</span>
+<span class="sd">            The model likelihood.</span>
+<span class="sd">        factors (list):</span>
+<span class="sd">            The list of model factors.</span>
+<span class="sd">        growth_curve: (str):</span>
+<span class="sd">            The nonlinear growth curve.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">model_type</span> <span class="o">==</span> <span class="s2">&quot;nonlinear&quot;</span><span class="p">:</span>
+        <span class="n">fit_nonlinear_model</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> <span class="n">growth_curve</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fit_linear_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="vbgm">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.vbgm">[docs]</a>
+<span class="k">def</span> <span class="nf">vbgm</span><span class="p">(</span><span class="n">l_inf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a von Bertalanffy growth model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        l_inf (float):</span>
+<span class="sd">            The asymptotic size.</span>
+<span class="sd">        k (float):</span>
+<span class="sd">            The growth coefficient.</span>
+<span class="sd">        t_0 (float):</span>
+<span class="sd">            The theoretical age when size is zero.</span>
+<span class="sd">        t (np.ndarray):</span>
+<span class="sd">            The age.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray:</span>
+<span class="sd">            The size at time t.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">L_t</span> <span class="o">=</span> <span class="n">l_inf</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_0</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">L_t</span></div>
+
+
+
+<div class="viewcode-block" id="bvbgm">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.bvbgm">[docs]</a>
+<span class="k">def</span> <span class="nf">bvbgm</span><span class="p">(</span>
+    <span class="n">l_inf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_h</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a biphasic von Bertalanffy growth model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        l_inf (float):</span>
+<span class="sd">            The asymptotic size.</span>
+<span class="sd">        k (float):</span>
+<span class="sd">            The growth coefficient.</span>
+<span class="sd">        t_0 (float):</span>
+<span class="sd">            The theoretical age when size is zero.</span>
+<span class="sd">        h (float):</span>
+<span class="sd">            The magnitude of the maximum difference in the size-at-age</span>
+<span class="sd">            between monophasic and biphasic parameterisations.</span>
+<span class="sd">        t_h (float):</span>
+<span class="sd">            The time of the phasic shift.</span>
+<span class="sd">        t (np.ndarray):</span>
+<span class="sd">            The age.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray:</span>
+<span class="sd">            The size at time t.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A_t</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">L_t</span> <span class="o">=</span> <span class="n">l_inf</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="n">A_t</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_0</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">L_t</span></div>
+
+
+
+<span class="n">growth_func_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;vbgm&quot;</span><span class="p">:</span> <span class="n">vbgm</span><span class="p">,</span> <span class="s2">&quot;bvbgm&quot;</span><span class="p">:</span> <span class="n">bvbgm</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="fit_nonlinear_model">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.fit_nonlinear_model">[docs]</a>
+<span class="k">def</span> <span class="nf">fit_nonlinear_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span>
+    <span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">resp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a nonlinear Bayesian growth model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model (pm.Model):</span>
+<span class="sd">            The PyMC model.</span>
+<span class="sd">        priors (dict):</span>
+<span class="sd">            The model priors.</span>
+<span class="sd">        x (np.ndarray):</span>
+<span class="sd">            The explanatory variable data.</span>
+<span class="sd">        y (np.ndarray):</span>
+<span class="sd">            The response variable data.</span>
+<span class="sd">        resp (str):</span>
+<span class="sd">            The model response.</span>
+<span class="sd">        likelihood (str):</span>
+<span class="sd">            The model likelihood.</span>
+<span class="sd">        factors (list):</span>
+<span class="sd">            The list of model factors.</span>
+<span class="sd">        growth_curve: (str):</span>
+<span class="sd">            The nonlinear growth curve.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">growth_func</span> <span class="o">=</span> <span class="n">growth_func_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">growth_curve</span><span class="p">,</span> <span class="s2">&quot;vbgm&quot;</span><span class="p">)</span>
+    <span class="n">growth_func_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">priors</span><span class="p">:</span>
+        <span class="n">prior</span> <span class="o">=</span> <span class="n">priors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;lower&quot;</span> <span class="ow">in</span> <span class="n">prior</span> <span class="ow">or</span> <span class="s2">&quot;upper&quot;</span> <span class="ow">in</span> <span class="n">prior</span><span class="p">:</span>
+            <span class="n">growth_func_kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">TruncatedNormal</span><span class="p">(</span><span class="o">**</span><span class="n">prior</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">growth_func_kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="o">**</span><span class="n">prior</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">likelihood</span> <span class="o">==</span> <span class="s2">&quot;student_t&quot;</span><span class="p">:</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span>
+            <span class="n">resp</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">growth_func</span><span class="p">(</span><span class="o">**</span><span class="n">growth_func_kwargs</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">TruncatedNormal</span><span class="p">(</span>
+            <span class="n">resp</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">growth_func</span><span class="p">(</span><span class="o">**</span><span class="n">growth_func_kwargs</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="fit_linear_model">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.fit_linear_model">[docs]</a>
+<span class="k">def</span> <span class="nf">fit_linear_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span> <span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a linear Bayesian model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model (pm.Model):</span>
+<span class="sd">            The PyMC model.</span>
+<span class="sd">        priors (dict):</span>
+<span class="sd">            The model priors.</span>
+<span class="sd">        x (np.ndarray):</span>
+<span class="sd">            The explanatory variable data.</span>
+<span class="sd">        y (np.ndarray):</span>
+<span class="sd">            The response variable data.</span>
+<span class="sd">        resp (str):</span>
+<span class="sd">            The model response.</span>
+<span class="sd">        likelihood (str):</span>
+<span class="sd">            The model likelihood.</span>
+<span class="sd">        factors (list):</span>
+<span class="sd">            The list of model factors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">intercept_prior</span> <span class="o">=</span> <span class="n">priors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;intercept&quot;</span><span class="p">)</span>
+    <span class="n">slope_prior</span> <span class="o">=</span> <span class="n">priors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;slope&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;lower&quot;</span> <span class="ow">in</span> <span class="n">intercept_prior</span> <span class="ow">or</span> <span class="s2">&quot;upper&quot;</span> <span class="ow">in</span> <span class="n">intercept_prior</span><span class="p">:</span>
+        <span class="n">intercept</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">TruncatedNormal</span><span class="p">(</span><span class="o">**</span><span class="n">intercept_prior</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">intercept</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="o">**</span><span class="n">intercept_prior</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;lower&quot;</span> <span class="ow">in</span> <span class="n">slope_prior</span> <span class="ow">or</span> <span class="s2">&quot;upper&quot;</span> <span class="ow">in</span> <span class="n">slope_prior</span><span class="p">:</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">TruncatedNormal</span><span class="p">(</span><span class="o">**</span><span class="n">slope_prior</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="o">**</span><span class="n">slope_prior</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">likelihood</span> <span class="o">==</span> <span class="s2">&quot;student_t&quot;</span><span class="p">:</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="plot_bayes_model">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.plot_bayes_model">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_bayes_model</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot Bayesian modelling results.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        trace (Trace):</span>
+<span class="sd">            The model trace.</span>
+<span class="sd">        out_dir (str):</span>
+<span class="sd">            The output directory.</span>
+<span class="sd">        hdi_prob (float, optional):</span>
+<span class="sd">            The highest density interval probability. Defaults to 0.95.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Trace: The model trace.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">textsize</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="k">for</span> <span class="n">plot</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;trace&quot;</span><span class="p">,</span> <span class="s2">&quot;rank_vlines&quot;</span><span class="p">,</span> <span class="s2">&quot;rank_bars&quot;</span><span class="p">]:</span>
+        <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">plot</span><span class="p">,</span> <span class="n">plot_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;textsize&quot;</span><span class="p">:</span> <span class="n">textsize</span><span class="p">})</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plot</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__create_plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">plot_func</span><span class="p">,</span> <span class="n">plot_name</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">plot_func</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plot_name</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+        <span class="s2">&quot;scatter_kwargs&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
+        <span class="s2">&quot;marginals&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;textsize&quot;</span><span class="p">:</span> <span class="n">textsize</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">__create_plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">,</span> <span class="s2">&quot;marginals&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s2">&quot;textsize&quot;</span><span class="p">:</span> <span class="n">textsize</span><span class="p">}</span>
+    <span class="n">__create_plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_violin</span><span class="p">,</span> <span class="s2">&quot;violin&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s2">&quot;textsize&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="n">__create_plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">,</span> <span class="s2">&quot;posterior&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;summary.csv&quot;</span><span class="p">)</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="n">hdi_prob</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+
+    <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">extend_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s2">&quot;textsize&quot;</span><span class="p">:</span> <span class="n">textsize</span><span class="p">}</span>
+    <span class="n">__create_plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">,</span> <span class="s2">&quot;ppc&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">trace</span></div>
+
+
+
+<div class="viewcode-block" id="get_mu_pp">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.get_mu_pp">[docs]</a>
+<span class="k">def</span> <span class="nf">get_mu_pp</span><span class="p">(</span>
+    <span class="n">trace</span><span class="p">,</span> <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the mean posterior predictions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        trace (Trace):</span>
+<span class="sd">            The model trace.</span>
+<span class="sd">        model_type (str):</span>
+<span class="sd">            The model type.</span>
+<span class="sd">        x (np.ndarray):</span>
+<span class="sd">            The explanatory variable values.</span>
+<span class="sd">        priors (dict):</span>
+<span class="sd">            The model priors.</span>
+<span class="sd">        growth_curve: (str):</span>
+<span class="sd">            The nonlinear growth curve.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        xr.DataArray: The mean posterior predictions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">posterior</span>
+
+    <span class="k">if</span> <span class="n">model_type</span> <span class="o">==</span> <span class="s2">&quot;nonlinear&quot;</span><span class="p">:</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;obs_id&quot;</span><span class="p">])}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">priors</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="n">growth_func</span> <span class="o">=</span> <span class="n">growth_func_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">growth_curve</span><span class="p">,</span> <span class="s2">&quot;vbgm&quot;</span><span class="p">)</span>
+        <span class="n">mu_pp</span> <span class="o">=</span> <span class="n">growth_func</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mu_pp</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;intercept&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;obs_id&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">mu_pp</span></div>
+
+
+
+<div class="viewcode-block" id="plot_preds">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.plot_preds">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_preds</span><span class="p">(</span>
+    <span class="n">mu_pp</span><span class="p">,</span>
+    <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">response_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">explanatory_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hdi_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot predicted values over the observations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mu_pp (DataArray):</span>
+<span class="sd">            The mean posterior predictions.</span>
+<span class="sd">        out_dir (str):</span>
+<span class="sd">            The output directory.</span>
+<span class="sd">        observed_data (DataArray):</span>
+<span class="sd">            The observed data.</span>
+<span class="sd">        posterior_predictive (DataArray):</span>
+<span class="sd">            The posterior predictions.</span>
+<span class="sd">        x (np.ndarray):</span>
+<span class="sd">            The explanatory variable values.</span>
+<span class="sd">        response_var (str):</span>
+<span class="sd">            The response variable.</span>
+<span class="sd">        explanatory_var (str):</span>
+<span class="sd">            The explanatory variable</span>
+<span class="sd">        hdi_prob (float, optional):</span>
+<span class="sd">            The highest density interval probability. Defaults to 0.95.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The output file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">mu_pp</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">&quot;chain&quot;</span><span class="p">,</span> <span class="s2">&quot;draw&quot;</span><span class="p">)),</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Mean </span><span class="si">{</span><span class="n">response_var</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">observed_data</span><span class="p">)</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_hdi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">posterior_predictive</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="n">hdi_prob</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">explanatory_var</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">response_var</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">response_var</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">explanatory_var</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outfile</span></div>
+
+
+
+<div class="viewcode-block" id="snake_case_string">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.snake_case_string">[docs]</a>
+<span class="k">def</span> <span class="nf">snake_case_string</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply some processing to convert a string to snakecase.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            The input text.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The snakecase string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">snake_string</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">snake_string</span></div>
+
+
+
+<div class="viewcode-block" id="parse_comma_list">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.parse_comma_list">[docs]</a>
+<span class="k">def</span> <span class="nf">parse_comma_list</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse a comma-delimited string into a list.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            The input text.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The parsed list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">word_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;, and&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">word_list</span></div>
+
+
+
+<span class="c1">######################################</span>
+<span class="c1"># Types</span>
+<span class="c1">######################################</span>
+
+<span class="n">parse_comparison</span> <span class="o">=</span> <span class="n">TypeBuilder</span><span class="o">.</span><span class="n">make_enum</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;greater than&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;less than&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span> <span class="s2">&quot;==&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">parse_enabled_disabled</span> <span class="o">=</span> <span class="n">TypeBuilder</span><span class="o">.</span><span class="n">make_enum</span><span class="p">({</span><span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<span class="n">parse_male_female</span> <span class="o">=</span> <span class="n">TypeBuilder</span><span class="o">.</span><span class="n">make_enum</span><span class="p">({</span><span class="s2">&quot;male&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">})</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Growth Modelling Behavior-Driven Development  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">behaviour_tests.features.steps.utils</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, James Bristow.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    </div>
+  </body>
+</html>
