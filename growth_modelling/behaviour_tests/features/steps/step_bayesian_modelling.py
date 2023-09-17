@@ -16,6 +16,7 @@ from utils import (
     get_dir_path,
     get_df,
     get_mu_pp,
+    get_trace_dict_key,
     parse_comparison,
     parse_enabled_disabled,
     plot_bayes_model,
@@ -40,9 +41,38 @@ register_type(SnakeCaseString=snake_case_string)
 register_type(CommaList=parse_comma_list)
 
 ######################################
-# Steps
+# Functions
 ######################################
 
+def get_trace_key(context: Context) -> str:
+    """
+    Get the dictionary key for the trace object from the test context.
+
+    Args:
+        context (Context): 
+            The test context.
+
+    Returns:
+        str: 
+            The dictionary key for the trace object.
+    """
+    bayesian_def = context.behaviour.bayesian
+    fisheries_def = context.behaviour.fisheries
+
+    trace_key = get_trace_dict_key(
+        fisheries_def["class_type"],
+        fisheries_def["order"],
+        fisheries_def["species"],
+        fisheries_def["sex"],
+        bayesian_def["model_type"],
+        fisheries_def["growth_curve"],
+    )
+
+    return trace_key
+
+######################################
+# Steps
+######################################
 
 @given(
     'we are fitting a "{model_type}" Bayesian multilevel growth model using "{sampler_longname}" ("{sampler: SnakeCaseString}")'
@@ -193,7 +223,7 @@ def step_impl(context: Context) -> None:
             target_accept=bayesian_def.acceptance_prob,
             model=model,
             random_seed=behaviour.random_seed,
-            progressbar=False
+            progressbar=False,
         )
         pm.compute_log_likelihood(trace)
         trace = plot_bayes_model(trace, out_dir, bayesian_def.hdi_prob)
@@ -216,7 +246,8 @@ def step_impl(context: Context) -> None:
             bayesian_def.hdi_prob,
         )
 
-        context.trace = trace
+        trace_key = get_trace_key(context)
+        context.traces[trace_key] = trace
 
 
 @then(
@@ -229,8 +260,11 @@ def step_impl(
     comparison: str,
     diag_baseline: float,
 ) -> None:
+    trace_key = get_trace_key(context)
+    trace = context.traces[trace_key]
+
     hdi_prob = context.behaviour.bayesian["hdi_prob"]
-    trace_df = az.summary(context.trace, hdi_prob=hdi_prob)
+    trace_df = az.summary(trace, hdi_prob=hdi_prob)
     n_rows = trace_df.shape[0]
 
     filtered_df = trace_df.query(f"{diagnostic} {comparison} @diag_baseline")
@@ -245,8 +279,11 @@ def step_impl(
 def step_impl(
     context: Context, parameter: str, estimate: float, error_prop: float
 ) -> None:
+    trace_key = get_trace_key(context)
+    trace = context.traces[trace_key]
+
     hdi_prob = context.behaviour.bayesian["hdi_prob"]
-    trace_df = az.summary(context.trace, hdi_prob=hdi_prob)
+    trace_df = az.summary(trace, hdi_prob=hdi_prob)
     trace_df["parameter"] = trace_df.index
 
     error = estimate * error_prop

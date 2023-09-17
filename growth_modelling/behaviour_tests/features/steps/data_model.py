@@ -92,6 +92,14 @@ class FisheriesModel(BaseDataModel):
         self.growth_curve: str = "linear"
         self.growth_curve_longname: str = "linear"
 
+@dataclass
+class ExperimentModel(BaseDataModel):
+    """Class for experiment parameters."""
+
+    def __init__(self) -> None:
+        self.statement : str = ""
+        self.hypothesis : str = ""
+
 
 @dataclass
 class BehaviourTestModel(BaseDataModel):
@@ -100,6 +108,7 @@ class BehaviourTestModel(BaseDataModel):
     def __init__(self) -> None:
         self.bayesian: BayesianModel = BayesianModel()
         self.fisheries: FisheriesModel = FisheriesModel()
+        self.experiment : ExperimentModel = ExperimentModel()
         self.data_dir: str = join_path("..", "data")
         self.data_file: str = "data.csv"
         self.random_seed: int = 100

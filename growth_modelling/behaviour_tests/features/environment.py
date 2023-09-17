@@ -3,7 +3,7 @@
 ######################################
 
 # External
-from behave.model import Scenario
+from behave.model import Feature, Scenario
 from behave.runner import Context
 
 # Internal
@@ -12,6 +12,19 @@ from steps.data_model import BehaviourTestModel
 ######################################
 # Functions
 ######################################
+
+
+def before_feature(context: Context, feature: Feature) -> None:
+    """
+    Before feature environmental control.
+
+    Args:
+        context (Context):
+            The current test context.
+        feature (Feature):
+            The current test feature.
+    """
+    context.traces = {}
 
 
 def before_scenario(context: Context, scenario: Scenario) -> None:

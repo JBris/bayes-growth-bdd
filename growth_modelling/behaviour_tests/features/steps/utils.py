@@ -422,6 +422,41 @@ def plot_preds(
     return outfile
 
 
+def get_trace_dict_key(
+    class_type: str,
+    order: str,
+    species: str,
+    sex: str,
+    model_type: str,
+    growth_curve: str,
+) -> str:
+    """
+    Get the dictionary key for the Bayesian model trace.
+
+    Args:
+        class_type (str):
+            The taxonomic class.
+        order (str):
+            The taxonomic order.
+        species (str):
+            The taxonomic species.
+        sex (str):
+            The sex of the animal.
+        model_type (str):
+            The type of model being fitted.
+        growth_curve (str):
+            The type of growth curve being fitted.
+
+    Returns:
+        str:
+            The dictionary key
+    """
+    trace_key = "_".join(
+        [class_type, order, species, sex, model_type, growth_curve]
+    )
+    return trace_key
+
+
 def snake_case_string(text: str) -> str:
     """
     Apply some processing to convert a string to snakecase.

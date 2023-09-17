@@ -1,12 +1,22 @@
 @carcharhinus_sorrah
 Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     Background:
-        Given we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
+        Given our statement that:
+            """
+            Energy reallocation from somatic growth to sexual reproduction at the onset of sexual maturity
+            contributes to decreases in somatic growth rates
+            """
+        And our hypothesis that:
+            """
+            Biphasic growth models will provide a superior statistical fit compared to monophasic growth models
+            as they are able to account for changes in somatic growth rates at sexual maturity
+            """"
+        And we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
         And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
-        And we are taking "2000" draws per MCMC chain
-        And we specify "2000" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.999"
+        And we are taking "1500" draws per MCMC chain
+        And we specify "1500" samples for our burn-in period
+        And our MCMC samples have an acceptance probability of "0.99"
         And our class is "Chondrichthyes"
         And our order is "Carcharhiniformes"
         And our family is "Carcharhinidae"
@@ -59,6 +69,10 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
 
     @fisheries_modelling
+    Scenario: Compare monophasic and biphasic growth models for male spot-tail sharks (Carcharhinus sorrah)
+        When our sex is "Male"
+
+    @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female spot-tail sharks (Carcharhinus sorrah)
         Given our growth curve is a "von Bertalanffy growth model" ("VBGM")
         When our sex is "Female"
@@ -101,3 +115,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "0.2"
         And we expect our "Monte carlo standard error" ("MCSE sd") diagnostics to all be "less than" "0.2"
         And we expect our "Gelman-Rubin statistic" ("R-hat") diagnostics to all be "less than" "1.1"
+
+    @fisheries_modelling
+    Scenario: Compare monophasic and biphasic growth models for female spot-tail sharks (Carcharhinus sorrah)
+        When our sex is "Female"
