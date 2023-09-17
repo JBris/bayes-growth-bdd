@@ -234,6 +234,34 @@ between monophasic and biphasic parameterisations.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="behaviour_tests.features.steps.utils.get_trace_dict_key">
+<span class="sig-prename descclassname"><span class="pre">behaviour_tests.features.steps.utils.</span></span><span class="sig-name descname"><span class="pre">get_trace_dict_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_curve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/utils.html#get_trace_dict_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.utils.get_trace_dict_key" title="Link to this definition">¶</a></dt>
+<dd><p>Get the dictionary key for the Bayesian model trace.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>class_type (str):</dt><dd><p>The taxonomic class.</p>
+</dd>
+<dt>order (str):</dt><dd><p>The taxonomic order.</p>
+</dd>
+<dt>species (str):</dt><dd><p>The taxonomic species.</p>
+</dd>
+<dt>sex (str):</dt><dd><p>The sex of the animal.</p>
+</dd>
+<dt>model_type (str):</dt><dd><p>The type of model being fitted.</p>
+</dd>
+<dt>growth_curve (str):</dt><dd><p>The type of growth curve being fitted.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>str:</dt><dd><p>The dictionary key</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="behaviour_tests.features.steps.utils.parse_comma_list">
 <span class="sig-prename descclassname"><span class="pre">behaviour_tests.features.steps.utils.</span></span><span class="sig-name descname"><span class="pre">parse_comma_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/behaviour_tests/features/steps/utils.html#parse_comma_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#behaviour_tests.features.steps.utils.parse_comma_list" title="Link to this definition">¶</a></dt>
 <dd><p>Parse a comma-delimited string into a list.</p>
@@ -355,6 +383,7 @@ between monophasic and biphasic parameterisations.</p>
 <li><a class="reference internal" href="#behaviour_tests.features.steps.utils.get_df"><code class="docutils literal notranslate"><span class="pre">get_df()</span></code></a></li>
 <li><a class="reference internal" href="#behaviour_tests.features.steps.utils.get_dir_path"><code class="docutils literal notranslate"><span class="pre">get_dir_path()</span></code></a></li>
 <li><a class="reference internal" href="#behaviour_tests.features.steps.utils.get_mu_pp"><code class="docutils literal notranslate"><span class="pre">get_mu_pp()</span></code></a></li>
+<li><a class="reference internal" href="#behaviour_tests.features.steps.utils.get_trace_dict_key"><code class="docutils literal notranslate"><span class="pre">get_trace_dict_key()</span></code></a></li>
 <li><a class="reference internal" href="#behaviour_tests.features.steps.utils.parse_comma_list"><code class="docutils literal notranslate"><span class="pre">parse_comma_list()</span></code></a></li>
 <li><a class="reference internal" href="#behaviour_tests.features.steps.utils.plot_bayes_model"><code class="docutils literal notranslate"><span class="pre">plot_bayes_model()</span></code></a></li>
 <li><a class="reference internal" href="#behaviour_tests.features.steps.utils.plot_preds"><code class="docutils literal notranslate"><span class="pre">plot_preds()</span></code></a></li>

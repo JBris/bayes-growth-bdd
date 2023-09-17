@@ -234,8 +234,9 @@
 <span class="sd">        np.ndarray:</span>
 <span class="sd">            The size at time t.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">A_t</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="n">L_t</span> <span class="o">=</span> <span class="n">l_inf</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="n">A_t</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_0</span><span class="p">)))</span>
+      
+    <span class="n">A_t</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_h</span><span class="p">)</span><span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">L_t</span> <span class="o">=</span> <span class="n">l_inf</span> <span class="o">*</span> <span class="n">A_t</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_0</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">L_t</span></div>
 
 
@@ -493,6 +494,44 @@
     <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">response_var</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">explanatory_var</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">outfile</span></div>
+
+
+
+<div class="viewcode-block" id="get_trace_dict_key">
+<a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.get_trace_dict_key">[docs]</a>
+<span class="k">def</span> <span class="nf">get_trace_dict_key</span><span class="p">(</span>
+    <span class="n">class_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">species</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">sex</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the dictionary key for the Bayesian model trace.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        class_type (str):</span>
+<span class="sd">            The taxonomic class.</span>
+<span class="sd">        order (str):</span>
+<span class="sd">            The taxonomic order.</span>
+<span class="sd">        species (str):</span>
+<span class="sd">            The taxonomic species.</span>
+<span class="sd">        sex (str):</span>
+<span class="sd">            The sex of the animal.</span>
+<span class="sd">        model_type (str):</span>
+<span class="sd">            The type of model being fitted.</span>
+<span class="sd">        growth_curve (str):</span>
+<span class="sd">            The type of growth curve being fitted.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            The dictionary key</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">trace_key</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">class_type</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">growth_curve</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">trace_key</span></div>
 
 
 
