@@ -6,7 +6,6 @@
 from behave.runner import Context
 from behave import given, when
 from behave import register_type
-from parse_type import TypeBuilder
 
 # Internal
 from utils import parse_comma_list, parse_male_female, snake_case_string
@@ -36,10 +35,14 @@ register_type(CommaList=parse_comma_list)
 # Steps
 ######################################
 
-@given('our growth curve is a "{growth_curve_longname}" ("{growth_curve:SnakeCaseString}")')
+
+@given(
+    'our growth curve is a "{growth_curve_longname}" ("{growth_curve:SnakeCaseString}")'
+)
 def step_impl(context, growth_curve_longname: str, growth_curve: str) -> None:
     context.behaviour.fisheries.growth_curve_longname = growth_curve_longname
     context.behaviour.fisheries.growth_curve = growth_curve
+
 
 @given('our class is "{class_type:SnakeCaseString}"')
 def step_impl(context: Context, class_type: str) -> None:
@@ -50,9 +53,11 @@ def step_impl(context: Context, class_type: str) -> None:
 def step_impl(context: Context, order: str) -> None:
     context.behaviour.fisheries.order = order
 
+
 @given('our family is "{family:SnakeCaseString}"')
 def step_impl(context: Context, family: str) -> None:
     context.behaviour.fisheries.family = family
+
 
 @given('our species is "{species:SnakeCaseString}"')
 def step_impl(context: Context, species: str) -> None:
@@ -63,30 +68,37 @@ def step_impl(context: Context, species: str) -> None:
 def step_impl(context: Context, data_source: str) -> None:
     context.behaviour.fisheries.data_source = data_source
 
+
 @given('we set our random seed to "{random_seed:n}"')
 def step_impl(context: Context, random_seed: int):
     context.behaviour.random_seed
 
+
 @when('our sex is "{sex:MaleFemale}"')
 def step_impl(context: Context, sex: str) -> None:
     context.behaviour.fisheries.sex = sex
+
 
 @when('we have samples taken from "{location_list:CommaList}"')
 def step_impl(context: Context, location_list: list[str]) -> None:
     locations = [location_oracle.get(location) for location in location_list]
     context.behaviour.fisheries.locations = locations
 
-@when('recorded location data are unavailable')
+
+@when("recorded location data are unavailable")
 def step_impl(context):
     context.behaviour.fisheries.locations = []
+
 
 @when('we have samples taken between "{lower_date:d}" and "{upper_date:d}"')
 def step_impl(context: Context, lower_date: int, upper_date: int) -> None:
     context.behaviour.fisheries.years = [lower_date, upper_date]
 
-@when('recorded year data are unavailable')
+
+@when("recorded year data are unavailable")
 def step_impl(context):
     context.behaviour.fisheries.years = []
+
 
 @when(
     'our response variable is "{response_var:SnakeCaseString}" ("{response_unit:SnakeCaseString}")'
@@ -95,6 +107,7 @@ def step_impl(context: Context, response_var: str, response_unit: str) -> None:
     response_var = variable_oracle.get(response_var)
     context.behaviour.fisheries.response_var = response_var
     context.behaviour.fisheries.response_unit = response_unit
+
 
 @when(
     'our explanatory variable is "{explanatory_var:SnakeCaseString}" ("{explanatory_unit:SnakeCaseString}")'

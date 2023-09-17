@@ -49,4 +49,4 @@ master_doc = "index"
 
 # Datetime
 
-today_fmt = '%d/%m/%y'
+today_fmt = "%d/%m/%y"

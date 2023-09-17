@@ -4,9 +4,9 @@ Feature: Linear growth model for Australian blacktip sharks (Carcharhinus tilsto
         Given we are fitting a "linear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
         And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
-        And we are taking "500" draws per MCMC chain
-        And we specify "500" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.8"
+        And we are taking "2000" draws per MCMC chain
+        And we specify "2000" samples for our burn-in period
+        And our MCMC samples have an acceptance probability of "0.999"
         And our class is "Chondrichthyes"
         And our order is "Carcharhiniformes"
         And our family is "Carcharhinidae"

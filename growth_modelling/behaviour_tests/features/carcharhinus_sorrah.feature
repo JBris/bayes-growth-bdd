@@ -4,9 +4,9 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         Given we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
         And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
-        And we are taking "1500" draws per MCMC chain
-        And we specify "1500" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.99"
+        And we are taking "2000" draws per MCMC chain
+        And we specify "2000" samples for our burn-in period
+        And our MCMC samples have an acceptance probability of "0.999"
         And our class is "Chondrichthyes"
         And our order is "Carcharhiniformes"
         And our family is "Carcharhinidae"
@@ -22,8 +22,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "90.0" with a standard deviation of "15.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "90.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
@@ -43,11 +43,11 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "90.0" with a standard deviation of "15.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "90.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
-        And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75"
-        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5"
+        And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75" and a "lower" bound of "0.0"
+        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
@@ -66,8 +66,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "100.0" with a standard deviation of "15.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "110.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
@@ -87,11 +87,11 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And recorded location data are unavailable
         And our response variable is "Fork Length" ("cm")
         And our explanatory variable is "Age" ("years")
-        And we believe that the "L_inf" parameter could plausibly be "100.0" with a standard deviation of "15.0"
-        And we believe that the "k" parameter could plausibly be "5.0" with a standard deviation of "5.0"
+        And we believe that the "L_inf" parameter could plausibly be "110.0" with a standard deviation of "15.0" and a "lower" bound of "0.0"
+        And we believe that the "k" parameter could plausibly be "6.0" with a standard deviation of "5.0" and a "lower" bound of "0.0"
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "5.0"
-        And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75"
-        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5"
+        And we believe that the "t_h" parameter could plausibly be "2.5" with a standard deviation of "0.75" and a "lower" bound of "0.0"
+        And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "1.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
         And we retrieve our data from the "data.csv" file
