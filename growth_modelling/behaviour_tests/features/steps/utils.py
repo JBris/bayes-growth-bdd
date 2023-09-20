@@ -246,11 +246,13 @@ def fit_nonlinear_model(
             z_alpha = pm.Normal(f"{alpha_name}_z", mu=0, sigma=1, dims=factor)
             alpha = pm.Deterministic(alpha_name, mu_alpha + z_alpha * sigma_alpha, dims=factor)[indx]
 
+            # Set mu to zero for any additional random incercepts
+            prior_mu = 0
             if isinstance(prior["mu"], TensorVariable):
                 prior["mu"] += alpha
             else:
                 prior["mu"] = alpha
-
+            
         if "lower" in prior or "upper" in prior:
             growth_func_kwargs[k] = pm.TruncatedNormal(**prior)
         else:
