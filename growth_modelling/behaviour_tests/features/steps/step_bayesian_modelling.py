@@ -121,11 +121,6 @@ def step_impl(context: Context, acceptance_prob: float) -> None:
     context.behaviour.bayesian.acceptance_prob = acceptance_prob
 
 
-@given('we retrieve our data from the "{data_file}" file')
-def step_impl(context: Context, data_file: str) -> None:
-    context.behaviour.data_file = data_file
-
-
 @given(
     'we believe that the "{parameter:SnakeCaseString}" parameter could plausibly be "{mu:f}" with a standard deviation of "{sigma:f}"'
 )
@@ -181,6 +176,11 @@ def step_impl(context: Context, method_longname: str, method: str) -> None:
 @given('our method to estimate the model weights is "{model_weights}"')
 def step_impl(context: Context, model_weights: str) -> None:
     context.behaviour.bayesian.model_weights = model_weights
+
+
+@when('we retrieve our data from the "{data_file}" file')
+def step_impl(context: Context, data_file: str) -> None:
+    context.behaviour.data_file = data_file
 
 
 @when("we fit our Bayesian model")

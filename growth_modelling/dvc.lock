@@ -71,8 +71,8 @@ stages:
       size: 207
     - path: conf/experiment_tracking/local.yaml
       hash: md5
-      md5: 39beaed9466a0ab570f1584c6875c20b
-      size: 37
+      md5: 09d5cfd8b3af7816c55ff0542d1082a9
+      size: 51
     - path: conf/plot/carcharhiniformes.yaml
       hash: md5
       md5: 09faed84003632cc38afbc632b097966
@@ -91,21 +91,21 @@ stages:
       size: 18462
     - path: src/plot_curves.py
       hash: md5
-      md5: 93c6afb51599275bee7edefbbb7e658c
-      size: 4192
+      md5: 842eed2a381afc81f23513c374db0a85
+      size: 4506
     outs:
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_limbatus/stl_age.png
       hash: md5
-      md5: 0f6725193e7cb118f4a5e1915962398b
-      size: 68113
+      md5: cab7e553c096931d3ede2decd8f2a405
+      size: 68098
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/stl_age.png
       hash: md5
-      md5: afa67da21ceb1176bcc62263fa9eb82f
-      size: 46125
+      md5: e23e00ab504dd96d5d79f6a2fc6eb7e2
+      size: 46118
       isexec: true
     - path: data/chondrichthyes/carcharhiniformes/carcharhinus_tilstoni/stl_age.png
       hash: md5
-      md5: abdc4ea597bd5091e65b05c73e5b775b
-      size: 47428
+      md5: ea499878b7829cae1f711d1535e1c16f
+      size: 47471
       isexec: true

@@ -44,8 +44,8 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -67,8 +67,8 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "2.0" and a "lower" bound of "0.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -79,6 +79,7 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
     Scenario: Compare monophasic and biphasic growth models for male Australian blacktip sharks (Carcharhinus tilstoni)
         Given our sex is "Male"
         When we compare the following candidate models "VBGM and BVBGM"
+        Then we expect the "BVBGM" to be the best performing model
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female Australian blacktip sharks (Carcharhinus tilstoni)
@@ -93,8 +94,8 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -116,8 +117,8 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "2.0" and a "lower" bound of "0.0"
         And we fit random intercepts to "year and location"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -128,3 +129,4 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
     Scenario: Compare monophasic and biphasic growth models for female Australian blacktip sharks (Carcharhinus tilstoni)
         Given our sex is "Female"
         When we compare the following candidate models "VBGM and BVBGM"
+        Then we expect the "BVBGM" to be the best performing model

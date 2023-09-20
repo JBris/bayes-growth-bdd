@@ -44,8 +44,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -67,8 +67,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "0.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -79,6 +79,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     Scenario: Compare monophasic and biphasic growth models for male spot-tail sharks (Carcharhinus sorrah)
         Given our sex is "Male"
         When we compare the following candidate models "VBGM and BVBGM"
+        Then we expect the "BVBGM" to be the best performing model
 
     @fisheries_modelling
     Scenario: Fit a von Bertalanffy growth model for female spot-tail sharks (Carcharhinus sorrah)
@@ -93,8 +94,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we believe that the "t_0" parameter could plausibly be "0.0" with a standard deviation of "2.5"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -116,8 +117,8 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we believe that the "h" parameter could plausibly be "0.0" with a standard deviation of "0.5" and a "lower" bound of "0.0"
         And we fit random intercepts to "year"
         And we aim to evaluate the "0.95" highest posterior density intervals (HDIs) of our parameter estimates
-        And we retrieve our data from the "data.csv" file
-        When we fit our Bayesian model
+        When we retrieve our data from the "data.csv" file
+        And we fit our Bayesian model
         Then we expect our "Effective sample size" ("ESS bulk") diagnostics to all be "greater than" "500.0"
         And we expect our "Effective sample size" ("ESS tail") diagnostics to all be "greater than" "500.0"
         And we expect our "Monte carlo standard error" ("MCSE mean") diagnostics to all be "less than" "1.0"
@@ -128,4 +129,4 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
     Scenario: Compare monophasic and biphasic growth models for female spot-tail sharks (Carcharhinus sorrah)
         Given our sex is "Female"
         When we compare the following candidate models "VBGM and BVBGM"
-
+        Then we expect the "BVBGM" to be the best performing model

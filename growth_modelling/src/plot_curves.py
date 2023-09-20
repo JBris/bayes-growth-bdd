@@ -28,6 +28,7 @@ def plot_curves(
     col: str,
     as_cat: list[str] = [],
     tracking_uri: str = None,
+    enable_experiment_tracking: bool = False
 ) -> None:
     """
     Plot the growth curves.
@@ -53,6 +54,8 @@ def plot_curves(
             Cast the column as a category. Defaults to [].
         tracking_uri (str, optional):
             The experiment tracking URI. Defaults to None.
+        enable_experiment_tracking (bool, optional):
+            Enable experiment tracking. Defaults to False.
     """
     species_df = index_df.query("species_code == @species_code")
     extract_val = lambda key: species_df[key].values.item()
@@ -82,7 +85,7 @@ def plot_curves(
     outfile = join_path(in_dir, f"{y}_{x}.png")
     plt.savefig(outfile)
 
-    if tracking_uri is None:
+    if enable_experiment_tracking is False or tracking_uri is None:
         return
 
     import mlflow
@@ -125,6 +128,7 @@ def main(config: DictConfig) -> None:
     # Constants
     SPECIES_LIST = config["common"]["species"]
     TRACKING_URI = config["experiment_tracking"]["tracking_uri"]
+    ENABLE_EXPERIMENT_TRACKING = config["experiment_tracking"]["enabled"]
 
     data_config = config["data"]
     DATA_DIR = data_config["dir"]
@@ -154,6 +158,7 @@ def main(config: DictConfig) -> None:
             COL,
             AS_CAT,
             TRACKING_URI,
+            ENABLE_EXPERIMENT_TRACKING
         )
 
 
