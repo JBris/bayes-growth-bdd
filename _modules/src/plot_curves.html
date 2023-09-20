@@ -74,6 +74,7 @@
     <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">as_cat</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
     <span class="n">tracking_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">enable_experiment_tracking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the growth curves.</span>
@@ -99,6 +100,8 @@
 <span class="sd">            Cast the column as a category. Defaults to [].</span>
 <span class="sd">        tracking_uri (str, optional):</span>
 <span class="sd">            The experiment tracking URI. Defaults to None.</span>
+<span class="sd">        enable_experiment_tracking (bool, optional):</span>
+<span class="sd">            Enable experiment tracking. Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">species_df</span> <span class="o">=</span> <span class="n">index_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;species_code == @species_code&quot;</span><span class="p">)</span>
     <span class="n">extract_val</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="n">species_df</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
@@ -128,7 +131,7 @@
     <span class="n">outfile</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">tracking_uri</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">enable_experiment_tracking</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="n">tracking_uri</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
 
     <span class="kn">import</span> <span class="nn">mlflow</span>
@@ -174,6 +177,7 @@
     <span class="c1"># Constants</span>
     <span class="n">SPECIES_LIST</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;common&quot;</span><span class="p">][</span><span class="s2">&quot;species&quot;</span><span class="p">]</span>
     <span class="n">TRACKING_URI</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;experiment_tracking&quot;</span><span class="p">][</span><span class="s2">&quot;tracking_uri&quot;</span><span class="p">]</span>
+    <span class="n">ENABLE_EXPERIMENT_TRACKING</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;experiment_tracking&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span>
 
     <span class="n">data_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
     <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">data_config</span><span class="p">[</span><span class="s2">&quot;dir&quot;</span><span class="p">]</span>
@@ -203,6 +207,7 @@
             <span class="n">COL</span><span class="p">,</span>
             <span class="n">AS_CAT</span><span class="p">,</span>
             <span class="n">TRACKING_URI</span><span class="p">,</span>
+            <span class="n">ENABLE_EXPERIMENT_TRACKING</span>
         <span class="p">)</span></div>
 
 
