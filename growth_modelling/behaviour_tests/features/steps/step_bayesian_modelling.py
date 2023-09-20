@@ -354,3 +354,8 @@ def step_impl(
     posterior_mean = trace_df.query("parameter == @parameter")["mean"].values.item()
 
     assert posterior_mean < (estimate + error) and posterior_mean > (estimate - error)
+
+@then('we expect the "{candidate_model}" to be the best performing model')
+def step_impl(context: Context, candidate_model: str) -> None:
+    top_model = context.model_scores.model.iloc[0] 
+    assert top_model == candidate_model
