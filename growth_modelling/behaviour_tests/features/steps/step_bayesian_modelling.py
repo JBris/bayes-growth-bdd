@@ -220,17 +220,31 @@ def step_impl(context: Context) -> None:
     x = df[fisheries_def.explanatory_var].values
     y = df[fisheries_def.response_var].values
     resp = "y"
-    with pm.Model() as model:
+
+    coords = {}
+    for col in bayesian_def.factors:
+        _, mn_factor = df[col].factorize()
+        coords[col] = mn_factor
+
+    with pm.Model(coords = coords) as model:
+        factor_data = {}
+        for col in bayesian_def.factors:
+            factor, _ = df[col].factorize()
+            factor_data[col] = pm.MutableData(f"{col}_indx", factor, dims="obs_id")
+
+        x_idx = pm.MutableData("x_idx", x , dims="obs_id")
+   
         fit_model(
             bayesian_def.model_type,
             model,
             bayesian_def.priors,
-            x,
+            x_idx,
             y,
             resp,
             bayesian_def.likelihood,
             bayesian_def.factors,
             fisheries_def.growth_curve,
+            factor_data
         )
 
         if bayesian_def.parallelisation:
@@ -242,7 +256,7 @@ def step_impl(context: Context) -> None:
         pgm.render(format = "png", directory = out_dir, filename = "model_graph")
 
         trace = pm.sample(
-            init = "jitter+adapt_full",
+            init = "auto",
             draws=bayesian_def.n_draws,
             tune=bayesian_def.n_burn,
             chains=bayesian_def.n_chains,

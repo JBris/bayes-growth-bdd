@@ -17,10 +17,10 @@ Feature: Nonlinear growth model for Australian blacktip sharks (Carcharhinus til
             """"
         And we are fitting a "nonlinear" Bayesian multilevel growth model using "No U-Turn Sampler" ("NUTS")
         And we are fitting a growth model with a "Gaussian" likelihood
-        And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
-        And we are taking "1500" draws per MCMC chain
-        And we specify "1500" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.99"
+        And we are running "8" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
+        And we are taking "2500" draws per MCMC chain
+        And we specify "2500" samples for our burn-in period
+        And our MCMC samples have an acceptance probability of "0.999"
         And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
         And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
         And our method to estimate the model weights is "stacking"

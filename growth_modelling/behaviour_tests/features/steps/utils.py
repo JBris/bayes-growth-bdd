@@ -10,6 +10,7 @@ from os.path import join as join_path
 import pandas as pd
 import pymc as pm
 from parse_type import TypeBuilder
+from pytensor.tensor import TensorVariable
 import xarray as xr
 
 ######################################
@@ -97,6 +98,7 @@ def fit_model(
     likelihood: str,
     factors: list[str],
     growth_curve: str = "",
+    factor_data: dict[pm.MutableData] = {}
 ) -> None:
     """
     Fit a Bayesian model.
@@ -118,15 +120,21 @@ def fit_model(
             The model likelihood.
         factors (list):
             The list of model factors.
-        growth_curve: (str):
-            The nonlinear growth curve.
+        growth_curve: (str, optional):
+            The nonlinear growth curve. Defaults to "".
+        factor_data: (dict, optional):
+            The factor level data. Defaults to {}.
     """
     if model_type == "nonlinear":
         fit_nonlinear_model(
-            model, priors, x, y, resp, likelihood, factors, growth_curve
+            model, priors, x, y, resp, likelihood, factors, 
+            growth_curve, factor_data
         )
     else:
-        fit_linear_model(model, priors, x, y, resp, likelihood, factors)
+        fit_linear_model(
+            model, priors, x, y, resp, likelihood, factors, 
+            factor_data
+        )
 
 
 def vbgm(l_inf: float, k: float, t_0: float, t: np.ndarray) -> np.ndarray:
@@ -194,6 +202,7 @@ def fit_nonlinear_model(
     likelihood: str,
     factors: list[str],
     growth_curve: str = "",
+    factor_data: dict[pm.MutableData] = {}
 ) -> None:
     """
     Fit a nonlinear Bayesian growth model.
@@ -213,8 +222,10 @@ def fit_nonlinear_model(
             The model likelihood.
         factors (list):
             The list of model factors.
-        growth_curve: (str):
-            The nonlinear growth curve.
+        growth_curve: (str, optional):
+            The nonlinear growth curve. Defaults to "".
+        factor_data: (dict, optional):
+            The factor level data. Defaults to {}.
     """
     sigma = pm.HalfStudentT("sigma", nu=3, sigma=10)
 
@@ -222,6 +233,24 @@ def fit_nonlinear_model(
     growth_func_kwargs = {"t": x}
     for k in priors:
         prior = priors.get(k)
+
+        prior_mu = prior["mu"]
+        for factor in factors:
+            # Not the most beautiful code in the world...
+            # Non-centered parameterization for random incercepts.
+            indx = factor_data.get(factor)
+            alpha_name = f"{k}_{factor}_alpha"
+
+            mu_alpha = pm.Normal(f"{alpha_name}_mu", mu=prior_mu, sigma=prior["sigma"]) 
+            sigma_alpha = pm.HalfStudentT(f"{alpha_name}_sigma", nu=3, sigma=prior["sigma"])
+            z_alpha = pm.Normal(f"{alpha_name}_z", mu=0, sigma=1, dims=factor)
+            alpha = pm.Deterministic(alpha_name, mu_alpha + z_alpha * sigma_alpha, dims=factor)[indx]
+
+            if isinstance(prior["mu"], TensorVariable):
+                prior["mu"] += alpha
+            else:
+                prior["mu"] = alpha
+
         if "lower" in prior or "upper" in prior:
             growth_func_kwargs[k] = pm.TruncatedNormal(**prior)
         else:
@@ -238,7 +267,8 @@ def fit_nonlinear_model(
 
 
 def fit_linear_model(
-    model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, factors: list[str]
+    model: pm.Model, priors: dict, x, y, resp: str, likelihood: str, 
+    factors: list[str], factor_data: dict[pm.MutableData] = {}
 ) -> None:
     """
     Fit a linear Bayesian model.
@@ -258,8 +288,12 @@ def fit_linear_model(
             The model likelihood.
         factors (list):
             The list of model factors.
+        factor_data: (dict, optional):
+            The factor level data. Defaults to {}.
     """
     sigma = pm.HalfStudentT("sigma", nu=3, sigma=10)
+    year_indx = factor_data.get("year_indx")
+    location_indx = factor_data.get("location_indx")
 
     intercept_prior = priors.get("intercept")
     slope_prior = priors.get("slope")
