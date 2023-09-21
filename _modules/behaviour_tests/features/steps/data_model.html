@@ -127,6 +127,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hdi_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameter_factors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metric_longname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Expected log pointwise predictive density&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;elpd&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method_longname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Pareto smoothed importance sampling leave-one-out cross-validation&quot;</span>
@@ -154,7 +155,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">explanatory_var</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;age&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">explanatory_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;years&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">growth_curve_longname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">growth_curve_longname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 
 <div class="viewcode-block" id="ExperimentModel">

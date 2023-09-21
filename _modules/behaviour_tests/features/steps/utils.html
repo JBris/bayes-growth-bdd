@@ -54,6 +54,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pymc</span> <span class="k">as</span> <span class="nn">pm</span>
 <span class="kn">from</span> <span class="nn">parse_type</span> <span class="kn">import</span> <span class="n">TypeBuilder</span>
+<span class="kn">from</span> <span class="nn">pytensor.tensor</span> <span class="kn">import</span> <span class="n">TensorVariable</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 <span class="c1">######################################</span>
@@ -149,6 +150,8 @@
     <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">factor_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">MutableData</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">parameter_factors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit a Bayesian model.</span>
@@ -170,15 +173,23 @@
 <span class="sd">            The model likelihood.</span>
 <span class="sd">        factors (list):</span>
 <span class="sd">            The list of model factors.</span>
-<span class="sd">        growth_curve: (str):</span>
-<span class="sd">            The nonlinear growth curve.</span>
+<span class="sd">        growth_curve: (str, optional):</span>
+<span class="sd">            The nonlinear growth curve. Defaults to &quot;&quot;.</span>
+<span class="sd">        factor_data: (dict, optional):</span>
+<span class="sd">            The factor level data. Defaults to {}.</span>
+<span class="sd">        parameter_factors (dict[list[str]], optional):</span>
+<span class="sd">            The map between parameters and factors. Defaults to {}.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">model_type</span> <span class="o">==</span> <span class="s2">&quot;nonlinear&quot;</span><span class="p">:</span>
         <span class="n">fit_nonlinear_model</span><span class="p">(</span>
-            <span class="n">model</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> <span class="n">growth_curve</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> 
+            <span class="n">growth_curve</span><span class="p">,</span> <span class="n">factor_data</span><span class="p">,</span> <span class="n">parameter_factors</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">fit_linear_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span></div>
+        <span class="n">fit_linear_model</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> 
+            <span class="n">factor_data</span><span class="p">,</span> <span class="n">parameter_factors</span>
+        <span class="p">)</span></div>
 
 
 
@@ -255,6 +266,8 @@
     <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">growth_curve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">factor_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">MutableData</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">parameter_factors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit a nonlinear Bayesian growth model.</span>
@@ -274,20 +287,38 @@
 <span class="sd">            The model likelihood.</span>
 <span class="sd">        factors (list):</span>
 <span class="sd">            The list of model factors.</span>
-<span class="sd">        growth_curve: (str):</span>
-<span class="sd">            The nonlinear growth curve.</span>
+<span class="sd">        growth_curve: (str, optional):</span>
+<span class="sd">            The nonlinear growth curve. Defaults to &quot;&quot;.</span>
+<span class="sd">        factor_data: (dict, optional):</span>
+<span class="sd">            The factor level data. Defaults to {}.</span>
+<span class="sd">        parameter_factors (dict[list[str]], optional):</span>
+<span class="sd">            The map between parameters and factors. Defaults to {}.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
     <span class="n">growth_func</span> <span class="o">=</span> <span class="n">growth_func_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">growth_curve</span><span class="p">,</span> <span class="s2">&quot;vbgm&quot;</span><span class="p">)</span>
     <span class="n">growth_func_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
+    
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">priors</span><span class="p">:</span>
         <span class="n">prior</span> <span class="o">=</span> <span class="n">priors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="s2">&quot;lower&quot;</span> <span class="ow">in</span> <span class="n">prior</span> <span class="ow">or</span> <span class="s2">&quot;upper&quot;</span> <span class="ow">in</span> <span class="n">prior</span><span class="p">:</span>
             <span class="n">growth_func_kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">TruncatedNormal</span><span class="p">(</span><span class="o">**</span><span class="n">prior</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">growth_func_kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="o">**</span><span class="n">prior</span><span class="p">)</span>
+        
+        <span class="n">factor_levels</span> <span class="o">=</span> <span class="n">parameter_factors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">factor_levels</span><span class="p">:</span>
+            <span class="n">alpha_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">factor</span><span class="si">}</span><span class="s2">_alpha&quot;</span>
+            <span class="c1"># Non-centered parameterization for random intercepts.</span>
+            <span class="n">mu_a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">alpha_name</span><span class="si">}</span><span class="s2">_mu&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">prior</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">])</span>
+            <span class="n">sigma_a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">alpha_name</span><span class="si">}</span><span class="s2">_sigma&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">prior</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">])</span>
+            <span class="n">z_a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">alpha_name</span><span class="si">}</span><span class="s2">_z&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">factor</span><span class="p">)</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="n">alpha_name</span><span class="p">,</span> <span class="n">mu_a</span> <span class="o">+</span> <span class="n">z_a</span> <span class="o">*</span> <span class="n">sigma_a</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">factor</span><span class="p">)</span>
 
+            <span class="n">indx</span> <span class="o">=</span> <span class="n">factor_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+            <span class="n">growth_func_kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span>
+        
     <span class="k">if</span> <span class="n">likelihood</span> <span class="o">==</span> <span class="s2">&quot;student_t&quot;</span><span class="p">:</span>
         <span class="n">obs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span>
             <span class="n">resp</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">growth_func</span><span class="p">(</span><span class="o">**</span><span class="n">growth_func_kwargs</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span>
@@ -302,7 +333,9 @@
 <div class="viewcode-block" id="fit_linear_model">
 <a class="viewcode-back" href="../../../../behaviour_testing/utils.html#behaviour_tests.features.steps.utils.fit_linear_model">[docs]</a>
 <span class="k">def</span> <span class="nf">fit_linear_model</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">:</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span> <span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span> <span class="n">priors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">resp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">factor_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">MutableData</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span> 
+    <span class="n">parameter_factors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit a linear Bayesian model.</span>
@@ -322,8 +355,14 @@
 <span class="sd">            The model likelihood.</span>
 <span class="sd">        factors (list):</span>
 <span class="sd">            The list of model factors.</span>
+<span class="sd">        factor_data: (dict, optional):</span>
+<span class="sd">            The factor level data. Defaults to {}.</span>
+<span class="sd">        parameter_factors (dict[list[str]], optional):</span>
+<span class="sd">            The map between parameters and factors. Defaults to {}.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">year_indx</span> <span class="o">=</span> <span class="n">factor_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;year_indx&quot;</span><span class="p">)</span>
+    <span class="n">location_indx</span> <span class="o">=</span> <span class="n">factor_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;location_indx&quot;</span><span class="p">)</span>
 
     <span class="n">intercept_prior</span> <span class="o">=</span> <span class="n">priors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;intercept&quot;</span><span class="p">)</span>
     <span class="n">slope_prior</span> <span class="o">=</span> <span class="n">priors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;slope&quot;</span><span class="p">)</span>
