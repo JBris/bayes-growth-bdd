@@ -46,7 +46,7 @@ Documentation for actually implementing nonlinear, Bayesian multilevel models wi
 
 #### behave
 
-[The behave package was used to implement all BDD tests.](https://behave.readthedocs.io/en/stable/index.html). These tests have been written using Gherkin syntax. [For more information on Gherkin, click here.](https://cucumber.io/docs/gherkin/reference/)
+[The behave package was used to implement all BDD tests.](https://behave.readthedocs.io/en/stable/index.html) These tests have been written using Gherkin syntax. [For more information on Gherkin, click here.](https://cucumber.io/docs/gherkin/reference/)
 
 * [Feature files containing human-readable Gherkin can be found here.](growth_modelling/behaviour_tests/features) 
 * [The implementation of the scenario steps can be found here.](growth_modelling/behaviour_tests/features/steps/) 
@@ -100,7 +100,7 @@ Experiment tracking is currently not being heavily used within the demonstration
 
 [The metadata is outputted as a YAML file, which we can save using experiment tracking and use to replicate our experiments.](growth_modelling/behaviour_tests/out/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/m/nonlinear/vbgm/meta.yaml)
 
-Notably, the results of the modelling exercise were fairly mixed - meaning that the biphasic growth models did not consistently outperform the monophasic growth models. 
+Notably, the results of the modelling exercise were fairly mixed - meaning that the biphasic growth models did not consistently outperform the monophasic growth models in terms of statistical fit. 
 
 ## Background and theory
 
