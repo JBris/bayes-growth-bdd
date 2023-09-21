@@ -72,6 +72,7 @@ class BayesianModel(BaseDataModel):
         self.hdi_prob: float = 0.95
         self.priors: dict = {}
         self.factors: list[str] = []
+        self.parameter_factors: dict[str] = {}
         self.metric_longname: str = "Expected log pointwise predictive density"
         self.metric: str = "elpd"
         self.method_longname: str = "Pareto smoothed importance sampling leave-one-out cross-validation"
@@ -97,6 +98,7 @@ class FisheriesModel(BaseDataModel):
         self.explanatory_unit: str = "years"
         self.growth_curve: str = "linear"
         self.growth_curve_longname: str = "linear"
+        self.parameters: dict[str] = {}
 
 @dataclass
 class ExperimentModel(BaseDataModel):

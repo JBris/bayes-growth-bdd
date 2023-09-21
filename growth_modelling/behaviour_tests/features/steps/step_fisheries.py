@@ -70,6 +70,13 @@ def step_impl(context: Context, species: str) -> None:
 def step_impl(context: Context, data_source: str) -> None:
     context.behaviour.fisheries.data_source = data_source
 
+@given(u'we define parameter "{parameter:SnakeCaseString}" ("{unit:SnakeCaseString}") as "{description}"')
+def step_impl(context: Context, parameter: str, unit: str, description: str) -> None:
+    context.behaviour.fisheries.parameters[parameter] = {
+        "name": parameter,
+        "unit": unit,
+        "description": description
+    }
 
 @given('we set our random seed to "{random_seed:n}"')
 def step_impl(context: Context, random_seed: int):

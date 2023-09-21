@@ -81,7 +81,7 @@ def get_trace_key(context: Context, growth_curve: str = "") -> str:
 ######################################
 
 @given(
-    'we are fitting a "{model_type}" Bayesian multilevel growth model using "{sampler_longname}" ("{sampler: SnakeCaseString}")'
+    'we are fitting a "{model_type}" Bayesian growth model using "{sampler_longname}" ("{sampler: SnakeCaseString}")'
 )
 def step_impl(
     context: Context, model_type: str, sampler_longname: str, sampler: str
@@ -149,9 +149,14 @@ def step_impl(
 
 
 @given('we fit random intercepts to "{factor_list:CommaList}"')
-def step_impl(context, factor_list: list[str]) -> None:
+def step_impl(context: Context, factor_list: list[str]) -> None:
     factors = [factor_oracle.get(factor) for factor in factor_list]
     context.behaviour.bayesian.factors = factors
+
+@given('we fit random intercepts for "{factor_list:CommaList}" to "{parameter:SnakeCaseString}"')
+def step_impl(context: Context, factor_list: list[str], parameter: str) -> None:
+    factors = [factor_oracle.get(factor) for factor in factor_list]
+    context.behaviour.bayesian.parameter_factors[parameter] = factors
 
 
 @given(
@@ -244,7 +249,8 @@ def step_impl(context: Context) -> None:
             bayesian_def.likelihood,
             bayesian_def.factors,
             fisheries_def.growth_curve,
-            factor_data
+            factor_data,
+            bayesian_def.parameter_factors
         )
 
         if bayesian_def.parallelisation:
