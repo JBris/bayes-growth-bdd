@@ -246,10 +246,7 @@ def fit_nonlinear_model(
         else:
             growth_func_kwargs[k] = pm.Normal(**prior)
         
-        factor_levels = parameter_factors.get(k)
-        if factor_levels is None:
-            continue
-        
+        factor_levels = parameter_factors.get(k, [])
         for factor in factor_levels:
             alpha_name = f"{k}_{factor}_alpha"
             # Non-centered parameterization for random intercepts.
@@ -260,7 +257,7 @@ def fit_nonlinear_model(
 
             indx = factor_data.get(factor)
             growth_func_kwargs[k] += alpha[indx]
-
+        
     if likelihood == "student_t":
         obs = pm.StudentT(
             resp, nu=3, mu=growth_func(**growth_func_kwargs), sigma=sigma, observed=y

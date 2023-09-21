@@ -1,0 +1,106 @@
+bayesian:
+  acceptance_prob: 0.99
+  factors:
+  - year
+  hdi_prob: 0.95
+  likelihood: gaussian
+  method: loo
+  method_longname: Pareto smoothed importance sampling leave-one-out cross-validation
+  metric: elpd
+  metric_longname: Expected log pointwise predictive density
+  model_type: nonlinear
+  model_weights: stacking
+  n_burn: 2000
+  n_chains: 4
+  n_draws: 2000
+  parallelisation: true
+  parameter_factors:
+    l_inf:
+    - year
+  priors:
+    h:
+      lower: '0.0'
+      mu: 0.0
+      name: h
+      sigma: 2.0
+    k:
+      lower: '0.0'
+      mu: 0.142
+      name: k
+      sigma: 0.1
+    l_inf:
+      lower: '0.0'
+      mu: 263.6
+      name: l_inf
+      sigma: 20.0
+    t_0:
+      mu: 0.0
+      name: t_0
+      sigma: 2.0
+    t_h:
+      lower: '0.0'
+      mu: 8.33
+      name: t_h
+      sigma: 1.0
+  sampler: nuts
+  sampler_longname: No U-Turn Sampler
+data_dir: ../data
+data_file: data.csv
+experiment:
+  aim: Evaluate and compare the statistical fit of biphasic growth models against
+    monophasic growth models, under the belief that biphasic growth models are better
+    able to account for changes in the growth trajectory of chondrichthyans following
+    the age-at-maturity. Hence, biphasic models may provide more robust parameter
+    estimates of growth to incorporate into other fisheries models, such as stock
+    assessment models.
+  hypothesis: ''
+  statement: The energy reallocation from somatic growth towards sexual reproduction
+    that occurs beyond the age-at-maturity contributes to decreases in somatic growth
+    rates following the onset of sexual maturity. Reproductive investment is particularly
+    high for chondrichthyans when compared to teleosts. Hence, changes in the growth
+    trajectory of chondrichthyans following the age-at-maturity are more likely to
+    be identified by length-at-age data alone.
+fisheries:
+  class_type: chondrichthyes
+  data_source: Harry et al. (2019)
+  explanatory_unit: years
+  explanatory_var: age
+  family: carcharhinidae
+  growth_curve: bvbgm
+  growth_curve_longname: biphasic von Bertalanffy growth model (Soriano et al., 1992)
+  locations:
+  - nsw1
+  - nsw2
+  - qld
+  - qld2
+  order: carcharhiniformes
+  parameters:
+    h:
+      description: The magnitude of the maximum difference in size-at-age between
+        monophasic and biphasic models.
+      name: h
+      unit: cm
+    k:
+      description: The growth coefficient representing the rate of growth.
+      name: k
+      unit: years
+    l_inf:
+      description: The theoretical upper asymptotic size for infinite growth.
+      name: l_inf
+      unit: years
+    t_0:
+      description: The theoretical size at age zero.
+      name: t_0
+      unit: cm
+    t_h:
+      description: The age in which the phasic transition occurs.
+      name: t_h
+      unit: years
+  response_unit: cm
+  response_var: stl
+  sex: f
+  species: carcharhinus_limbatus
+  years:
+  - 2004
+  - 2013
+random_seed: 100

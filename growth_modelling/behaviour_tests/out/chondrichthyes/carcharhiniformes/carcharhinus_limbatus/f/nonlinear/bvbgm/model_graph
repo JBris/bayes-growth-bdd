@@ -1,0 +1,62 @@
+digraph {
+	subgraph "clusterobs_id (34)" {
+		year_indx [label="year_indx
+~
+MutableData" shape=box style="rounded, filled"]
+		x_idx [label="x_idx
+~
+MutableData" shape=box style="rounded, filled"]
+		label="obs_id (34)" labeljust=r labelloc=b style=rounded
+	}
+	t_h [label="t_h
+~
+TruncatedNormal" shape=ellipse]
+	h [label="h
+~
+TruncatedNormal" shape=ellipse]
+	l_inf [label="l_inf
+~
+TruncatedNormal" shape=ellipse]
+	k [label="k
+~
+TruncatedNormal" shape=ellipse]
+	t_0 [label="t_0
+~
+Normal" shape=ellipse]
+	sigma [label="sigma
+~
+HalfStudentT" shape=ellipse]
+	l_inf_year_alpha_mu [label="l_inf_year_alpha_mu
+~
+Normal" shape=ellipse]
+	l_inf_year_alpha_sigma [label="l_inf_year_alpha_sigma
+~
+HalfStudentT" shape=ellipse]
+	subgraph "clusteryear (3)" {
+		l_inf_year_alpha_z [label="l_inf_year_alpha_z
+~
+Normal" shape=ellipse]
+		l_inf_year_alpha [label="l_inf_year_alpha
+~
+Deterministic" shape=box]
+		label="year (3)" labeljust=r labelloc=b style=rounded
+	}
+	subgraph cluster34 {
+		y [label="y
+~
+TruncatedNormal" shape=ellipse style=filled]
+		label=34 labeljust=r labelloc=b style=rounded
+	}
+	l_inf_year_alpha_mu -> l_inf_year_alpha
+	l_inf_year_alpha_z -> l_inf_year_alpha
+	l_inf_year_alpha_sigma -> l_inf_year_alpha
+	year_indx -> y
+	l_inf_year_alpha -> y
+	t_h -> y
+	h -> y
+	l_inf -> y
+	k -> y
+	t_0 -> y
+	x_idx -> y
+	sigma -> y
+}

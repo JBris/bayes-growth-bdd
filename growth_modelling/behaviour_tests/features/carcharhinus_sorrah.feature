@@ -20,7 +20,7 @@ Feature: Nonlinear growth model for spot-tail sharks (Carcharhinus sorrah)
         And we are running "4" Markov chain Monte Carlo (MCMC) chains with parallelisation "enabled"
         And we are taking "2000" draws per MCMC chain
         And we specify "2000" samples for our burn-in period
-        And our MCMC samples have an acceptance probability of "0.999"
+        And our MCMC samples have an acceptance probability of "0.99"
         And our assessment metric is "Expected log pointwise predictive density" ("ELPD")
         And our assessment method is "Pareto smoothed importance sampling leave-one-out cross-validation" ("LOO")
         And our method to estimate the model weights is "stacking"

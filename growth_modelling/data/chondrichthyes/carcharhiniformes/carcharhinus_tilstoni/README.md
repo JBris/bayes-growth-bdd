@@ -1,0 +1,1 @@
+Harry, A. V., Butcher, P. A., Macbeth, W. G., Morgan, J. A., Taylor, S. M., & Geraghty, P. T. (2019). Life history of the common blacktip shark, Carcharhinus limbatus, from central eastern Australia and comparative demography of a cryptic shark complex. Marine and Freshwater Research, 70(6), 834-848.

@@ -24,6 +24,3 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 growth_modelling --count --select=E9,F63,F7,F82 --show-source --statistics
-    # - name: Test with pytest
-    #   run: |
-    #     pytest growth_modelling/tests -n 16
