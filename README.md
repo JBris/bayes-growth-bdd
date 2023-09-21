@@ -98,7 +98,7 @@ Experiment tracking is currently not being heavily used within the demonstration
 
 [Using spot-tail sharks as an example, we compared a monophasic and biphasic von Bertalanffy growth model (VBGM) for each sex. In the Gherkin document, we have recorded the specification of the Bayesian growth model, baseline diagnostic values, our expected results, and various types of metadata.](growth_modelling/behaviour_tests/features/carcharhinus_sorrah.feature) 
 
-[The metadata is outputted as a YAML file, which we can save using experiment tracking and use to replicate our experiments.](growth_modelling/behaviour_tests/out/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/m/nonlinear/vbgm/meta.yaml).
+[The metadata is outputted as a YAML file, which we can save using experiment tracking and use to replicate our experiments.](growth_modelling/behaviour_tests/out/chondrichthyes/carcharhiniformes/carcharhinus_sorrah/m/nonlinear/vbgm/meta.yaml)
 
 Notably, the results of the modelling exercise were fairly mixed - meaning that the biphasic growth models did not consistently outperform the monophasic growth models. 
 
