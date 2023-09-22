@@ -103,7 +103,7 @@ Experiment tracking is currently not being heavily used within the demonstration
 
 Notably, the results of the modelling exercise were fairly mixed - meaning that the biphasic growth models did not consistently outperform the monophasic growth models in terms of statistical fit. 
 
-Also, note that we are using priors gleaned from the data itself. Spefically, our priors were taken from Harry et al. (2013) and Harry et al. (2019). In other words, we are using Empirical Bayes, rather than a fully Bayesian treatment.
+Also, note that we are using priors gleaned from the data itself. Specifically, our priors were taken from Harry et al. (2013) and Harry et al. (2019). In other words, we are using Empirical Bayes, rather than a fully Bayesian treatment.
 
 ## Background and theory
 
