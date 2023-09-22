@@ -116,7 +116,7 @@ Though the VBGM is highly popular, the assumption that a monophasic curve can mo
 
 ### Biphasic growth
 
-In contrast to teleostei, reproductive investment is relatively high for most chondrichthyans, so any changes in somatic growth rates following the age-at-maturity are more likely to be identified from growth and age data alone [[6]](#6). One contributing factor to these changes in growth rates is energy reallocation away from somatic growth and towards reproductive investment [[4]](#4).
+One contributing factor to changes in the growth rate of chondrichthyans following sexual maturity is energy reallocation away from somatic growth and towards reproductive investment [[4]](#4). In contrast to teleostei, reproductive investment is relatively high for most chondrichthyans, so any changes in somatic growth rates following the age-at-maturity are more likely to be identified from growth and age data alone [[6]](#6). 
 
 Soriano et al.'s [[7]](#7) biphasic modifications to the common VBGM, hereafter referred to as the biphasic VBGM (BVBGM), have been applied to a number of chondrichthyes within several age and growth studies. For instance, Acuna et al. [[8]](#8) made use of the BVBGM to model the growth of three pelagic sharks: *Lamna nasus*, *Isurus oxyrinchus*, *Prionace glauca*. 
 

@@ -537,7 +537,7 @@ def parse_comma_list(text: str) -> list:
 ######################################
 
 parse_comparison = TypeBuilder.make_enum(
-    {"greater than": ">", "less than": "<", "equal": "=="}
+    {"greater than": ">", "less than": "<", "equal to": "=="}
 )
 parse_enabled_disabled = TypeBuilder.make_enum({"enabled": True, "disabled": False})
 parse_male_female = TypeBuilder.make_enum({"male": "m", "female": "f"})
