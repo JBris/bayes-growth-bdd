@@ -28,9 +28,9 @@ Website: [Bayes Growth BDD](https://jbris.github.io/bayes-growth-bdd/)
 
 ### Overview
 
-The general idea behind this demonstration is to synthesise the behavior-driven development (BDD) testing approach that is more commonly used within *agile* software development with Bayesian statistical modelling. With a marine biology flavour. The overall aim is to demonstrate how BDD can enable and faciliate communication among different disciplines using a common human-readable language. This is particularly important within highly technical scientific domains where cross-disciplinary communication may be more challenging. 
+The general idea behind this demonstration is to synthesise the behavior-driven development (BDD) testing approach that is more commonly used within *agile* software development with Bayesian statistical modelling. With a marine biology flavour. The overall aim is to demonstrate how BDD can enable and facilitate communication among different disciplines using a common human-readable language. This is particularly important within highly technical scientific domains where cross-disciplinary communication may be more challenging. 
 
-BDD was chosen as it (at least in theory) faciliates collaboration and communication within multidisciplinary projects. Namely, it encourages business analysts and developers to collaborate in specifying the behaviour of software, via the use of user stories. These user stories should be written to a formal document. For this demonstration, these documents are written in the popular Gherkin syntax.
+BDD was chosen as it (at least in theory) facilitates collaboration and communication within multidisciplinary projects. Namely, it encourages business analysts and developers to collaborate in specifying the behaviour of software, via the use of user stories. These user stories should be written to a formal document. For this demonstration, these documents are written in the popular Gherkin syntax.
 
 Likewise, by using a Bayesian modelling approach, we can easily incorporate prior assumptions from domain experts (marine biologists in this case) into our models. These assumptions can be documented in Gherkin, and would be recorded by business analysts as user stories. 
 
