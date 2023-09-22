@@ -77,6 +77,7 @@ With the respective citations:
 * [The processed data can be found by here.](growth_modelling/data/chondrichthyes/carcharhiniformes/)
 * [This DVC pipeline can be executed to reproduce the data processing steps.](scripts/preprocess_data.sh)
 * [The Hydra configuration files for the DVC pipeline can be found here.](growth_modelling/conf/)
+* [The behave.sh script will run the BDD tests.](https://github.com/JBris/bayes-growth-bdd/blob/main/scripts/behave.sh)
 * [The BDD test results can be found here.](growth_modelling/behaviour_tests/out/chondrichthyes/carcharhiniformes/)
 
 ### Experiment tracking
