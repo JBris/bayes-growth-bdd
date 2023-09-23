@@ -7,15 +7,16 @@ services:
     container_name: ${PROJECT_NAME}-python
     hostname: python
     env_file: .env
-    working_dir: /growth_modelling
+    working_dir: ${PWD}
     environment:
       MLFLOW_BACKEND_STORE_URI: $MLFLOW_BACKEND_STORE_URI
       MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     volumes:
-      - ./growth_modelling:/growth_modelling
-
+      - ${PWD}:${PWD}:Z
+      - ${HOME}:${HOME}:ro,Z
+      
   mlflow:
     image: $GITHUB_CONTAINER_REPO
     container_name: ${PROJECT_NAME}-mlflow
