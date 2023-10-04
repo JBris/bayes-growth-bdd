@@ -144,7 +144,7 @@ setuptools==68.0.0
 shortuuid==1.0.11
 shtab==1.6.4
 six==1.16.0
-smmap==5.0.0
+smmap==5.0.1
 snowballstemmer==2.2.0
 Sphinx==7.2.5
 sphinx-argparse==0.4.0
