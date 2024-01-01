@@ -59,7 +59,7 @@ flake8==6.1.0
 Flask==2.3.3
 flatten-dict==0.4.2
 flufl.lock==7.1.1
-fonttools==4.42.1
+fonttools==4.47.0
 frozenlist==1.4.0
 fsspec==2023.9.0
 funcy==2.0
