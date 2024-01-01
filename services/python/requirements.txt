@@ -92,7 +92,7 @@ matplotlib==3.7.2
 mccabe==0.7.0
 mdurl==0.1.2
 miniKanren==1.0.3
-mlflow==2.4.1
+mlflow==2.9.2
 multidict==6.0.4
 multipledispatch==1.0.0
 mypy-extensions==1.0.0
