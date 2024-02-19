@@ -1,6 +1,7 @@
 # Bayes Growth BDD
 
 [![Validate Pipeline](https://github.com/JBris/bayes-growth-bdd/actions/workflows/validation.yml/badge.svg)](https://github.com/JBris/bayes-growth-bdd/actions/workflows/validation.yml) [![Documentation](https://github.com/JBris/bayes-growth-bdd/actions/workflows/docs.yml/badge.svg)](https://github.com/JBris/bayes-growth-bdd/actions/workflows/docs.yml) [![pages-build-deployment](https://github.com/JBris/bayes-growth-bdd/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/JBris/bayes-growth-bdd/actions/workflows/pages/pages-build-deployment)
+[![CodeQL](https://github.com/JBris/bayes-growth-bdd/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/JBris/bayes-growth-bdd/actions/workflows/github-code-scanning/codeql)
 
 Website: [Bayes Growth BDD](https://jbris.github.io/bayes-growth-bdd/)
 
