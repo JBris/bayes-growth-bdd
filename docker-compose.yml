@@ -215,3 +215,4 @@ volumes:
   grafana-data: {}
   cloudbeaver-data: {}
   metabase-data: {}
+  elasticsearch-data: {}
