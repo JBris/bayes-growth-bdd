@@ -141,6 +141,15 @@ services:
     volumes:
       - cloudbeaver-data:/opt/cloudbeaver/workspace
 
+  redis:
+    image: redis:${REDIS_TAG}
+    container_name: ${PROJECT_NAME}-redis
+    hostname: redis
+    restart: always
+    stop_grace_period: 10s
+    ports:
+      - ${REDIS_PORT}:6379
+      
   metabase:
     image: metabase/metabase:${METABASE_TAG}
     container_name: ${PROJECT_NAME}-metabase
